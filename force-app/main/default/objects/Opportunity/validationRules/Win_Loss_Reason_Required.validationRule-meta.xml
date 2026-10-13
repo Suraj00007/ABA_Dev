@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Win_Loss_Reason_Required</fullName>
+    <active>true</active>
+    <description>Win/Loss Reason must be captured when an opportunity is Closed Won or Closed Lost.</description>
+    <errorConditionFormula>AND(
+    OR(
+        ISPICKVAL(StageName, &apos;Closed Won&apos;),
+        ISPICKVAL(StageName, &apos;Closed Lost&apos;)
+    ),
+    ISBLANK(TEXT(Win_Loss_Reason__c))
+)</errorConditionFormula>
+    <errorDisplayField>Win_Loss_Reason__c</errorDisplayField>
+    <errorMessage>Please select a Win/Loss Reason before closing the opportunity.</errorMessage>
+</ValidationRule>

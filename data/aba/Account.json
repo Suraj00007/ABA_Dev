@@ -1,0 +1,136 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "Acc_GulfPetrochemServices"
+      },
+      "Name": "Gulf Petrochem Services",
+      "Industry": "Oil & Gas",
+      "Segment__c": "Enterprise",
+      "BillingCountry": "Saudi Arabia",
+      "Type": "Customer"
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "Acc_NajdRetailGroup"
+      },
+      "Name": "Najd Retail Group",
+      "Industry": "Retail",
+      "Segment__c": "Corporate",
+      "BillingCountry": "Saudi Arabia",
+      "Type": "Customer"
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "Acc_RedSeaLogistics"
+      },
+      "Name": "Red Sea Logistics",
+      "Industry": "Transportation",
+      "Segment__c": "Corporate",
+      "BillingCountry": "Saudi Arabia",
+      "Type": "Customer"
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "Acc_AlNoorHealthcare"
+      },
+      "Name": "Al Noor Healthcare",
+      "Industry": "Healthcare",
+      "Segment__c": "Enterprise",
+      "BillingCountry": "Saudi Arabia",
+      "Type": "Customer"
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "Acc_EmiratesFacilityMgmt"
+      },
+      "Name": "Emirates Facility Mgmt",
+      "Industry": "Construction",
+      "Segment__c": "Corporate",
+      "BillingCountry": "United Arab Emirates",
+      "Type": "Customer"
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "Acc_DesertBloomFoods"
+      },
+      "Name": "Desert Bloom Foods",
+      "Industry": "Food & Beverage",
+      "Segment__c": "SME",
+      "BillingCountry": "Saudi Arabia",
+      "Type": "Customer"
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "Acc_RiyadhSmartUtilities"
+      },
+      "Name": "Riyadh Smart Utilities",
+      "Industry": "Energy",
+      "Segment__c": "Enterprise",
+      "BillingCountry": "Saudi Arabia",
+      "Type": "Customer"
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "Acc_KhaleejFinanceHouse"
+      },
+      "Name": "Khaleej Finance House",
+      "Industry": "Banking",
+      "Segment__c": "Enterprise",
+      "BillingCountry": "United Arab Emirates",
+      "Type": "Customer"
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "Acc_TaibaEducationCo"
+      },
+      "Name": "Taiba Education Co",
+      "Industry": "Education",
+      "Segment__c": "Corporate",
+      "BillingCountry": "Saudi Arabia",
+      "Type": "Customer"
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "Acc_OasisManufacturing"
+      },
+      "Name": "Oasis Manufacturing",
+      "Industry": "Manufacturing",
+      "Segment__c": "SME",
+      "BillingCountry": "Saudi Arabia",
+      "Type": "Customer"
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "Acc_BahrainTelecomPartners"
+      },
+      "Name": "Bahrain Telecom Partners",
+      "Industry": "Telecommunications",
+      "Segment__c": "Corporate",
+      "BillingCountry": "Bahrain",
+      "Type": "Customer"
+    },
+    {
+      "attributes": {
+        "type": "Account",
+        "referenceId": "Acc_QassimAgriVentures"
+      },
+      "Name": "Qassim Agri Ventures",
+      "Industry": "Agriculture",
+      "Segment__c": "SME",
+      "BillingCountry": "Saudi Arabia",
+      "Type": "Customer"
+    }
+  ]
+}

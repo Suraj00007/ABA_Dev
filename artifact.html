@@ -1,0 +1,698 @@
+<title>ABA Opportunity Reporting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky contents rail on the left, one reading column on the right; catalog and dashboards widen into tables/grids. */
+:root {
+  --bg: #F3F6F7;
+  --surface: #FFFFFF;
+  --sunk: #EAF0F2;
+  --fg: #15222C;
+  --muted: #566572;
+  --line: #D6DEE3;
+  --accent: #0C6B68;
+  --accent-soft: #DDEFED;
+  --flag: #9A5B0B;
+  --flag-soft: #FBEFD9;
+  --mgmt: #2F4E8C;
+  --mgmt-soft: #E2E9F6;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --radius: 8px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E151B; --surface: #15202A; --sunk: #1B2833; --fg: #E4EBEF; --muted: #97A6B2; --line: #283844;
+    --accent: #56B8B2; --accent-soft: #163331; --flag: #E7B567; --flag-soft: #3A2C14; --mgmt: #8FAEEB; --mgmt-soft: #1E2A44;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E151B; --surface: #15202A; --sunk: #1B2833; --fg: #E4EBEF; --muted: #97A6B2; --line: #283844;
+  --accent: #56B8B2; --accent-soft: #163331; --flag: #E7B567; --flag-soft: #3A2C14; --mgmt: #8FAEEB; --mgmt-soft: #1E2A44;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.6; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 80px; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 40px; }
+@media (max-width: 900px) { .wrap { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
+
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 20px); align-self: start; font-size: 13.5px; }
+nav.toc .brand { font-family: var(--font-display); font-size: 20px; font-weight: 600; line-height: 1.2; margin-bottom: 4px; }
+nav.toc .sub { color: var(--muted); font-size: 12.5px; margin-bottom: 18px; }
+nav.toc ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+nav.toc a { display: block; padding: 5px 10px; border-radius: 6px; color: var(--muted); text-decoration: none; }
+nav.toc a:hover, nav.toc a:focus-visible { background: var(--sunk); color: var(--fg); outline: none; }
+@media (max-width: 900px) {
+  nav.toc { position: static; }
+  nav.toc ol { display: flex; flex-wrap: wrap; gap: 6px; }
+  nav.toc a { border: 1px solid var(--line); padding: 4px 10px; }
+}
+
+main { min-width: 0; display: grid; gap: 56px; }
+section { min-width: 0; scroll-margin-top: 20px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(30px, 4.4vw, 44px); letter-spacing: -0.01em; }
+h2 { font-size: 28px; margin-bottom: 6px; }
+h3 { font-size: 20px; margin: 26px 0 8px; }
+p { margin: 0 0 12px; max-width: 70ch; }
+.lede { font-size: 17px; color: var(--muted); max-width: 66ch; }
+.eyebrow { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.09em; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
+.section-intro { color: var(--muted); margin-bottom: 18px; }
+code, .mono { font-family: var(--font-mono); font-size: 0.86em; }
+code { background: var(--sunk); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+a { color: var(--accent); }
+
+.meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 18px; font-size: 13px; color: var(--muted); }
+.meta b { color: var(--fg); font-weight: 600; }
+
+.figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin-top: 26px; }
+.figure { background: var(--surface); padding: 14px 16px; }
+.figure .v { font-family: var(--font-display); font-size: 28px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.figure .l { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+th { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; background: var(--sunk); white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+
+.pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.mgmt { background: var(--mgmt-soft); color: var(--mgmt); }
+.pill.sales { background: var(--accent-soft); color: var(--accent); }
+.pill.flag { background: var(--flag-soft); color: var(--flag); }
+.pill.core { border: 1px solid var(--accent); color: var(--accent); }
+
+.callout { border: 1px solid var(--line); border-left: 3px solid var(--flag); background: var(--surface); padding: 12px 16px; border-radius: 0 var(--radius) var(--radius) 0; margin: 14px 0; max-width: 78ch; }
+.callout p:last-child { margin-bottom: 0; }
+
+/* Report catalog */
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; align-items: center; }
+.chip { font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.chip:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.search { font: inherit; font-size: 13.5px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); min-width: 0; flex: 1 1 200px; max-width: 320px; }
+.count { font-size: 12.5px; color: var(--muted); margin-left: auto; }
+
+.reports { display: grid; gap: 8px; }
+details.rep { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+details.rep[open] { border-color: var(--accent); }
+details.rep summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 54px minmax(0, 1fr) auto; gap: 4px 14px; padding: 12px 16px; align-items: center; }
+details.rep summary::-webkit-details-marker { display: none; }
+.rid { font-family: var(--font-mono); font-weight: 500; font-size: 13px; color: var(--accent); }
+.rname { font-weight: 600; min-width: 0; }
+.rname small { display: block; font-weight: 400; color: var(--muted); font-size: 12.5px; }
+.rresult { text-align: right; font-variant-numeric: tabular-nums; font-size: 13px; white-space: nowrap; }
+.rresult b { font-family: var(--font-display); font-size: 17px; }
+@media (max-width: 560px) {
+  details.rep summary { grid-template-columns: 44px minmax(0, 1fr); }
+  .rresult { grid-column: 2; text-align: left; }
+}
+.rbody { padding: 4px 16px 16px; border-top: 1px solid var(--line); }
+.rbody .purpose { margin: 12px 0; max-width: 72ch; }
+dl.spec { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 6px 16px; margin: 0; font-size: 13.5px; }
+dl.spec dt { color: var(--muted); font-weight: 600; }
+dl.spec dd { margin: 0; min-width: 0; }
+@media (max-width: 560px) { dl.spec { grid-template-columns: minmax(0, 1fr); } dl.spec dt { margin-top: 6px; } }
+
+/* Dashboard schematic */
+.dash-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.dash { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.dash-head { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--muted); }
+.dash-head b { color: var(--fg); }
+.grid-scroll { overflow-x: auto; }
+.dgrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: 15px; gap: 6px; min-width: 720px; padding: 12px; background: var(--sunk); border-radius: var(--radius); border: 1px solid var(--line); }
+.cell { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; overflow: hidden; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cell .ct { font-weight: 600; font-size: 12.5px; line-height: 1.3; }
+.cell .ck { font-size: 11px; color: var(--muted); }
+.cell .cv { font-family: var(--font-display); font-size: 20px; font-weight: 600; margin-top: auto; font-variant-numeric: tabular-nums; }
+.cell .cs { font-size: 11px; color: var(--muted); }
+
+/* Home page schematic */
+.home { display: grid; grid-template-columns: 2fr 1fr; gap: 8px; padding: 12px; background: var(--sunk); border: 1px solid var(--line); border-radius: var(--radius); }
+.home .region { background: var(--surface); border: 1px dashed var(--line); border-radius: 6px; padding: 10px 12px; font-size: 13px; }
+.home .region .rn { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
+.home .top { grid-column: 1; grid-row: 1 / span 2; }
+.home .side { grid-column: 2; grid-row: 1 / span 3; }
+.home .bl, .home .br { grid-row: 3; }
+.home .split { grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; grid-row: 3; }
+@media (max-width: 640px) { .home { grid-template-columns: minmax(0, 1fr); } .home .top, .home .side, .home .split { grid-column: 1; grid-row: auto; } }
+
+/* Recipes */
+.recipes { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+.recipe { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; min-width: 0; }
+.recipe h4 { margin: 0 0 6px; font-size: 15px; }
+.recipe p, .recipe li { font-size: 13.5px; }
+.recipe ul { margin: 6px 0 0; padding-left: 18px; }
+.recipe .how { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; color: var(--muted); margin-top: 10px; }
+
+.cmd { display: flex; gap: 8px; align-items: stretch; margin: 8px 0 14px; max-width: 100%; }
+.cmd pre { margin: 0; flex: 1; min-width: 0; overflow-x: auto; background: var(--sunk); border: 1px solid var(--line); border-radius: 6px; padding: 9px 12px; font-family: var(--font-mono); font-size: 12.5px; }
+.cmd button { font: inherit; font-size: 12.5px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 6px; padding: 0 12px; cursor: pointer; }
+
+ol.steps { padding-left: 20px; margin: 0; display: grid; gap: 10px; max-width: 78ch; }
+ol.steps li::marker { font-family: var(--font-mono); color: var(--accent); }
+ol.steps b { display: block; }
+
+pre.mermaid { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; overflow-x: auto; }
+
+@media (prefers-reduced-motion: no-preference) { details.rep { transition: border-color .15s; } }
+</style>
+
+<div class="wrap">
+  <nav class="toc" aria-label="Contents">
+    <div class="brand">ABA Opportunity Reporting</div>
+    <div class="sub">Build &amp; demo guide · ABA_Dev org</div>
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#questions">Management questions</a></li>
+      <li><a href="#build">How it was built</a></li>
+      <li><a href="#model">Fields &amp; setup</a></li>
+      <li><a href="#data">Sample data</a></li>
+      <li><a href="#reports">Report catalog</a></li>
+      <li><a href="#dashboards">Dashboards</a></li>
+      <li><a href="#home">Sales Home page</a></li>
+      <li><a href="#demo">Demo walkthrough</a></li>
+      <li><a href="#change">Making changes</a></li>
+      <li><a href="#open">Open items</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- OVERVIEW -->
+    <section id="overview">
+      <div class="eyebrow">Salesforce Sales Cloud · Opportunity reporting</div>
+      <h1>ABA Opportunity Reports &amp; Dashboards</h1>
+      <p class="lede" style="margin-top:14px">ABA management wants to measure the sales team and its revenue generation. This build answers that with 20 opportunity reports and 2 Lightning dashboards. Both dashboards sit on the Home page of the Sales app, so management sees them the moment they log in.</p>
+      <div class="meta">
+        <span>Org <b>ABA_Dev</b> (Developer Edition)</span>
+        <span>Built <b>8 Oct 2026</b></span>
+        <span>Source <b>Demo Build Guide.xlsx</b> + 2 sample CSVs</span>
+        <span>Fiscal year <b>Jan – Dec</b></span>
+      </div>
+      <div class="figures" aria-label="Headline numbers from the sample data">
+        <div class="figure"><div class="v">8.9M</div><div class="l">Revenue won, FY2026 YTD (9 deals)</div></div>
+        <div class="figure"><div class="v">2.75M</div><div class="l">Won this month and quarter (2 deals)</div></div>
+        <div class="figure"><div class="v">31.4M</div><div class="l">Active open pipeline (19 deals)</div></div>
+        <div class="figure"><div class="v">60%</div><div class="l">Win rate YTD (9 of 15 closed)</div></div>
+        <div class="figure"><div class="v">11.5M</div><div class="l">Deferred value on hold (5 deals)</div></div>
+      </div>
+      <p style="margin-top:12px;font-size:13px;color:var(--muted)">Amounts are the SAR values from the sample CSV. The org currency is still USD, so Salesforce shows a $ sign. See <a href="#open">Open items</a>.</p>
+    </section>
+
+    <!-- QUESTIONS -->
+    <section id="questions">
+      <div class="eyebrow">Why these reports exist</div>
+      <h2>What management asked, and where it is answered</h2>
+      <p class="section-intro">These are the 14 questions from the Day 1–3 workshops (sheet 1 of the build guide). Each maps to a report and to a dashboard component.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>#</th><th>Management question</th><th>Raised by</th><th>Report</th><th>Dashboard</th></tr></thead>
+          <tbody id="qrows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BUILD -->
+    <section id="build">
+      <div class="eyebrow">Approach</div>
+      <h2>How it was built</h2>
+      <p class="section-intro">Everything is Salesforce metadata kept in this SFDX project and deployed with the Salesforce CLI. The reports, dashboards and Home page are generated by a script, so a change is made once in code and redeployed. Nobody has to rebuild 20 reports by hand.</p>
+      <pre class="mermaid">
+flowchart LR
+  A["Build guide.xlsx<br/>+ ABA_sample_accounts.csv<br/>+ ABA_sample_opportunities.csv"] --> B["Fields & setup<br/>stages, picklists,<br/>6 new fields, rule, flow"]
+  B --> C["Sample data<br/>12 accounts<br/>52 opportunities"]
+  B --> D["build_reports.py<br/>generates metadata"]
+  D --> E["20 reports<br/>2 folders"]
+  E --> F["2 dashboards<br/>D1 Management · D2 Sales"]
+  F --> G["ABA Sales Home Page<br/>Sales app"]
+  C -.-> E
+      </pre>
+      <h3>Steps, in order</h3>
+      <ol class="steps">
+        <li><b>Retrieved the org into the project.</b>Full metadata pulled with a manifest generated from the org (<code>manifest/full-package.xml</code>), so the starting point was under source control.</li>
+        <li><b>Configured the data model</b> per sheet 4 of the build guide: new stages, Opportunity Type and Lead Source values, five new opportunity fields and one account field, a validation rule, a flow and a permission set. Deployed and checked.</li>
+        <li><b>Cleared the default demo data.</b>The org's 31 out-of-the-box sample opportunities (Edge, GenePoint, etc.) were exported to <code>data/backup/</code> and deleted, so they don't inflate ABA's numbers.</li>
+        <li><b>Created two salesperson users</b> and loaded the sample accounts and opportunities with <code>scripts/aba/build_sample_data.py</code>.</li>
+        <li><b>Generated and deployed the reports</b> with <code>scripts/aba/build_reports.py</code>. Every report was then run through the Salesforce Analytics API, and its record count and total matched an independent SOQL query (20 of 20).</li>
+        <li><b>Generated the two dashboards and the Home page</b>, assigned the page to the Sales app, and checked them in the browser.</li>
+      </ol>
+    </section>
+
+    <!-- MODEL -->
+    <section id="model">
+      <div class="eyebrow">Configuration</div>
+      <h2>Fields &amp; setup</h2>
+      <p class="section-intro">The values marked <span class="pill flag">PLACEHOLDER</span> come from the build guide and still need ABA's confirmation.</p>
+
+      <h3>Opportunity stages <span class="pill flag">PLACEHOLDER</span></h3>
+      <p>The stages follow ABA's bid process. <b>Deferred</b> and <b>Old / Archived</b> are open stages with forecast category <i>Omitted</i>. They drop out of pipeline and forecast, but a deal can be reopened later. All pipeline reports exclude them.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Stage</th><th>Probability</th><th>Forecast category</th><th>Type</th></tr></thead>
+          <tbody id="stagerows"></tbody>
+        </table>
+      </div>
+
+      <h3>Picklist values</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Field</th><th>Values</th><th>Source</th></tr></thead>
+          <tbody>
+            <tr><td>Opportunity Type</td><td>Net New Names · Existing Customer – Upgrade/Upsell · Existing Customer – Support · Existing Customer – Change Request · Existing Customer – New Opportunity</td><td>Day 2, 32:05</td></tr>
+            <tr><td>Lead Source</td><td>Web · Phone Inquiry · Partner Referral · SAP Leads · Events &amp; Campaigns · Sales Outreach</td><td>Day 2, 20:14</td></tr>
+            <tr><td>Account Industry</td><td>Added <b>Oil &amp; Gas</b> (needed by the sample accounts)</td><td>Sample data</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px;font-size:13.5px;color:var(--muted)">The old Salesforce default values (Prospecting, Needs Analysis, New Customer, Purchased List…) were deactivated, not deleted.</p>
+
+      <h3>New fields</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Field (API name)</th><th>Object</th><th>Type</th><th>Purpose</th><th>Used by</th></tr></thead>
+          <tbody>
+            <tr><td>Win/Loss Reason<br><code>Win_Loss_Reason__c</code></td><td>Opportunity</td><td>Picklist, dependent on Stage <span class="pill flag">PLACEHOLDER</span></td><td>Why a deal was won or lost. Closed Won shows: Price Competitiveness, Technical Solution Fit, Customer Relationship / Incumbent, Delivery Capability &amp; References, Partner (SAP) Influence. Closed Lost shows: Pricing / Commercial, Technical / Solution Gap, Lost to Competitor, Budget Cut / No Decision, Scope Cancelled, Compliance / Eligibility.</td><td>R10, R10a, R10b</td></tr>
+            <tr><td>Win/Loss Details<br><code>Win_Loss_Details__c</code></td><td>Opportunity</td><td>Long text</td><td>Free-text explanation. For Deferred deals it records why the deal is on hold.</td><td>R10, R13</td></tr>
+            <tr><td>Proposal Submission Date<br><code>Proposal_Submission_Date__c</code></td><td>Opportunity</td><td>Date</td><td>When the proposal is due. Internal review is one week before.</td><td>R17</td></tr>
+            <tr><td>Deferred Date<br><code>Deferred_Date__c</code></td><td>Opportunity</td><td>Date (read-only on layout)</td><td>Stamped automatically by flow when the stage becomes Deferred.</td><td>R13</td></tr>
+            <tr><td>Offering<br><code>Offering__c</code></td><td>Opportunity</td><td>Picklist <span class="pill flag">PLACEHOLDER</span></td><td>SAP S/4HANA, SAP SuccessFactors, SAP Support (AMS), Cloud Migration, Data &amp; Analytics.</td><td>Available for filtering</td></tr>
+            <tr><td>Close Quarter<br><code>Close_Quarter__c</code></td><td>Opportunity</td><td>Formula (text)</td><td>Q1–Q4 from the close date, without the year. Needed so this year and last year line up quarter by quarter.</td><td>R04</td></tr>
+            <tr><td>Segment<br><code>Segment__c</code></td><td>Account</td><td>Picklist</td><td>SME, Corporate, Enterprise.</td><td>R16</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Rules, automation and access</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Item</th><th>Name</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td>Validation rule</td><td><code>Win_Loss_Reason_Required</code></td><td>Blocks saving a Closed Won or Closed Lost opportunity without a Win/Loss Reason. Message: “Please select a Win/Loss Reason before closing the opportunity.”</td></tr>
+            <tr><td>Record-triggered flow</td><td>ABA Opportunity – Set Deferred Date</td><td>Runs before save. When Stage = Deferred and Deferred Date is blank, it sets Deferred Date to today.</td></tr>
+            <tr><td>Permission set</td><td>ABA Opportunity Reporting</td><td>Read/edit on the new fields (Close Quarter is read-only). Assigned to all 4 internal users.</td></tr>
+            <tr><td>Permission set</td><td>ABA Historical Data Load</td><td>Lets Suraj OD set Created Date when loading history. It is used together with the org setting <i>Set Audit Fields upon Record Creation</i>, which is now on. Both can be switched off after the data load.</td></tr>
+            <tr><td>Page layouts</td><td>Opportunity Layout, Account Layout</td><td>New section <b>Bid &amp; Win-Loss</b> on opportunities. Segment added under Industry on accounts.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- DATA -->
+    <section id="data">
+      <div class="eyebrow">Demo data</div>
+      <h2>Sample data</h2>
+      <p class="section-intro">Fictional companies from sheets 5 and 6 of the build guide, loaded with <code>sf data import tree</code>. The mix is designed so every report shows something.</p>
+      <div class="figures" style="margin-top:0">
+        <div class="figure"><div class="v">12</div><div class="l">Accounts (Saudi Arabia, UAE, Bahrain)</div></div>
+        <div class="figure"><div class="v">52</div><div class="l">Opportunities, Jan 2025 → Aug 2027</div></div>
+        <div class="figure"><div class="v">16 / 12</div><div class="l">Closed Won / Closed Lost</div></div>
+        <div class="figure"><div class="v">19</div><div class="l">Open, incl. 2 overdue</div></div>
+        <div class="figure"><div class="v">5</div><div class="l">Deferred</div></div>
+      </div>
+
+      <h3>Salespeople (opportunity owners)</h3>
+      <p>Developer Edition has only a few Salesforce licences, so the three salespeople in the CSV were mapped like this:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Name in CSV</th><th>Salesforce user</th><th class="num">Opportunities</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td>Venkatesh Rethinasamy</td><td>Venkatesh Rethinasamy</td><td class="num">18</td><td>New user, Standard User profile</td></tr>
+            <tr><td>Mohammed Alburayh</td><td>Mohammed Alburayh</td><td class="num">19</td><td>New user, Standard User profile</td></tr>
+            <tr><td>Mohammed Fouad</td><td><b>Suraj OD</b></td><td class="num">15</td><td>No licence left. When “Suraj OD” appears in a chart, read it as Fouad.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><p><b>Created Date was back-dated</b> to 30–75 days before each proposal date (never in the future). Without this, every deal would be “created today”, and the sales-cycle report R18 would show negative ages. The rule is in <code>scripts/aba/build_sample_data.py</code>.</p></div>
+    </section>
+
+    <!-- REPORTS -->
+    <section id="reports">
+      <div class="eyebrow">Report catalog</div>
+      <h2>The 20 reports</h2>
+      <p class="section-intro">All reports use the standard <b>Opportunities</b> report type and <b>All opportunities</b> scope. Management reports are in <span class="pill mgmt">ABA Management Reports</span>, shared with the CEO role and below. The rest are in <span class="pill sales">ABA Sales Reports</span>, shared with all internal users. <span class="pill core">CORE</span> marks the 10 reports committed in the proposal. Click a report to see its full specification.</p>
+      <div class="toolbar" role="group" aria-label="Filter reports">
+        <button class="chip" type="button" data-sec="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-sec="Revenue" aria-pressed="false">Revenue</button>
+        <button class="chip" type="button" data-sec="Pipeline" aria-pressed="false">Pipeline</button>
+        <button class="chip" type="button" data-sec="Sales team" aria-pressed="false">Sales team</button>
+        <button class="chip" type="button" data-sec="Win-loss" aria-pressed="false">Win-loss</button>
+        <button class="chip" type="button" data-sec="Action &amp; hygiene" aria-pressed="false">Action &amp; hygiene</button>
+        <button class="chip" type="button" data-sec="Revenue mix" aria-pressed="false">Revenue mix</button>
+        <button class="chip" type="button" data-sec="Bids &amp; efficiency" aria-pressed="false">Bids &amp; efficiency</button>
+        <input class="search" id="report-search" type="search" placeholder="Search name, field, filter…" aria-label="Search reports">
+        <span class="count" id="report-count"></span>
+      </div>
+      <div class="reports" id="report-list"></div>
+      <p style="margin-top:12px;font-size:13px;color:var(--muted)">Results are from 8 Oct 2026. Every relative date filter (this month, this fiscal year, next 30 days) moves with the calendar, so the numbers change as days pass.</p>
+    </section>
+
+    <!-- DASHBOARDS -->
+    <section id="dashboards">
+      <div class="eyebrow">Lightning dashboards</div>
+      <h2>Dashboards</h2>
+      <p class="section-intro">Both dashboards are in the folder <b>ABA Management Dashboards</b> (shared with the CEO role and below) on a 12-column grid. They run as <b>Suraj OD</b>, so every viewer sees the full picture, and both have <b>Opportunity Owner</b> and <b>Account Industry</b> filters. The layout below matches the real component positions.</p>
+      <div class="dash-tabs" role="tablist" aria-label="Choose dashboard">
+        <button class="chip" type="button" role="tab" data-dash="d1" aria-pressed="true" aria-selected="true">D1 · Management – Revenue &amp; Pipeline</button>
+        <button class="chip" type="button" role="tab" data-dash="d2" aria-pressed="false" aria-selected="false">D2 · Sales Performance &amp; Win-Loss</button>
+      </div>
+      <div id="dash-view"></div>
+      <div class="callout"><p><b>First open after a deploy shows “No data”.</b> Salesforce only builds dashboard data when the dashboard is refreshed. Before the demo, click <b>Refresh</b> on each dashboard. Each one can be refreshed at most once a minute.</p></div>
+    </section>
+
+    <!-- HOME -->
+    <section id="home">
+      <div class="eyebrow">Where users see it</div>
+      <h2>Sales Home page</h2>
+      <p class="section-intro">The Lightning page <b>ABA Sales Home Page</b> (<code>ABA_Sales_Home_Page</code>) is assigned as the Home page of the <b>Sales</b> app (<code>standard__LightningSales</code>) on desktop. Opening Sales → Home shows both dashboards, plus four report charts in the side regions.</p>
+      <div class="home" aria-label="Home page layout">
+        <div class="region top"><div class="rn">Top · main column</div><b>Dashboard D1</b> – Management: Revenue &amp; Pipeline <span class="mono" style="color:var(--muted)">(900 px)</span><br><b>Dashboard D2</b> – Sales Performance &amp; Win-Loss <span class="mono" style="color:var(--muted)">(1050 px)</span></div>
+        <div class="region side"><div class="rn">Sidebar</div>Report chart: <b>R08</b> Revenue Won by Salesperson – YTD<br>Report chart: <b>R01</b> Revenue Won – YTD</div>
+        <div class="split">
+          <div class="region"><div class="rn">Bottom left</div>Report chart: <b>R05</b> Open Pipeline by Stage</div>
+          <div class="region"><div class="rn">Bottom right</div>Report chart: <b>R10a</b> Why We Win – YTD</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO -->
+    <section id="demo">
+      <div class="eyebrow">Suggested script · about 15 minutes</div>
+      <h2>Demo walkthrough</h2>
+      <ol class="steps">
+        <li><b>Open Sales → Home.</b>“This is what management sees when they log in.” Point to the top row of D1: 2.75M won this month, 2.75M this quarter against a 5M target (55%, so the gauge is red), 8.9M year to date, 31.4M active pipeline and a 60% win rate.</li>
+        <li><b>Growth trend (R04).</b>Compare FY2025 and FY2026 quarter by quarter. Click the chart to drill into the report.</li>
+        <li><b>Pipeline (R05, R06).</b>The funnel is by stage. Deferred and Old / Archived deals are excluded, as agreed on Day 3. Then show which quarters the pipeline is expected to close in, split by forecast category.</li>
+        <li><b>Deals to push now (R11).</b>Three deals at Proposal Submitted or later close in the next 30 days, worth 4.7M. This uses the same rule as the planned 30-day reminder e-mail.</li>
+        <li><b>Use the dashboard filters.</b>Set Opportunity Owner to one salesperson, then Account Industry to Banking. Every component updates together.</li>
+        <li><b>Sales performance (D2).</b>Leaderboard: Venkatesh 4.2M, Alburayh 3.3M, Fouad 1.4M. Win rates: Alburayh 80%, Fouad 67%, Venkatesh 43%.</li>
+        <li><b>Why we win and lose (R10).</b>Price competitiveness drives most wins (5.6M). Losses are budget cuts (3.1M) and competitors (2.7M). This is why Win/Loss Reason is a picklist and not free text.</li>
+        <li><b>Hygiene and deferred deals (R12, R13).</b>Two overdue deals need follow-up. 11.5M is on hold in Deferred and can be reopened.</li>
+        <li><b>Show an opportunity record.</b>Open the Bid &amp; Win-Loss section, then try to close a deal without a reason to show the validation rule.</li>
+        <li><b>Close by asking for confirmations.</b>Stages, win/loss reasons, the quarterly target, currency and fiscal year. Walk through the <a href="#open">Open items</a> list.</li>
+      </ol>
+    </section>
+
+    <!-- CHANGE -->
+    <section id="change">
+      <div class="eyebrow">If ABA asks for changes</div>
+      <h2>Making changes</h2>
+      <p class="section-intro">There are two ways to change things. Small tweaks during or after the demo can be made directly in Salesforce Setup or the report builder. Lasting changes should go into the scripts and be redeployed, so the project and the org stay in sync.</p>
+      <div class="cmd"><pre id="cmd-deploy">python scripts/aba/build_reports.py
+sf project deploy start -x manifest/aba-package.xml -o ABA_Dev</pre><button type="button" data-copy="cmd-deploy">Copy</button></div>
+      <p style="font-size:13.5px;color:var(--muted)">The first command regenerates the reports, dashboards, Home page and the manifest. The second deploys all 44 ABA components. Add <code>--dry-run</code> to validate without deploying. If you edit a report in the Salesforce UI, pull it back into the project afterwards with <code>sf project retrieve start -m "Report:ABA_Sales_Reports/R08_Revenue_Won_by_Salesperson_YTD"</code>.</p>
+
+      <div class="recipes" id="recipes"></div>
+
+      <h3>Where things live in the project</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Path</th><th>What it is</th></tr></thead>
+          <tbody>
+            <tr><td><code>scripts/aba/build_reports.py</code></td><td>Single source for all reports (<code>build_reports()</code>), dashboards (<code>build_dashboards()</code>), folders, Home page and Sales app assignment. Constants at the top: <code>RUNNING_USER</code>, <code>QUARTERLY_TARGET</code>, folder names.</td></tr>
+            <tr><td><code>scripts/aba/build_sample_data.py</code></td><td>Turns the two CSVs into an import plan. <code>OWNER_MAP</code> maps CSV names to user IDs.</td></tr>
+            <tr><td><code>data/aba/</code></td><td>Generated import files (<code>aba-plan.json</code>, <code>Account.json</code>, <code>Opportunity.json</code>).</td></tr>
+            <tr><td><code>data/backup/</code></td><td>Backup of the 31 deleted default opportunities.</td></tr>
+            <tr><td><code>manifest/aba-package.xml</code></td><td>Every ABA component, for deploy or retrieve.</td></tr>
+            <tr><td><code>force-app/main/default/reports/ABA_*</code></td><td>Generated report metadata (one file per report).</td></tr>
+            <tr><td><code>force-app/main/default/dashboards/ABA_Management_Dashboards/</code></td><td>The two dashboards.</td></tr>
+            <tr><td><code>force-app/main/default/objects/Opportunity/</code></td><td>New fields and the validation rule.</td></tr>
+            <tr><td><code>force-app/main/default/standardValueSets/</code></td><td>Stage, Type, Lead Source and Industry values.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- OPEN ITEMS -->
+    <section id="open">
+      <div class="eyebrow">To confirm with ABA</div>
+      <h2>Open items</h2>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Item</th><th>Current state in the demo</th><th>What to confirm</th></tr></thead>
+          <tbody>
+            <tr><td><span class="pill flag">PLACEHOLDER</span> Opportunity stages</td><td>11 stages from the build guide</td><td>Final stage list and probabilities (Venkatesh to share)</td></tr>
+            <tr><td><span class="pill flag">PLACEHOLDER</span> Win/Loss reasons</td><td>5 win and 6 loss reasons</td><td>ABA's own values</td></tr>
+            <tr><td><span class="pill flag">PLACEHOLDER</span> Offering values</td><td>5 offerings</td><td>Offering, billing type, duration from the proposal scope</td></tr>
+            <tr><td>Quarterly target</td><td>5,000,000 in the D1 gauge (red under 60%, amber 60–90%, green over 90%)</td><td>Real quarterly target. Quotas stay outside Salesforce in Phase 1.</td></tr>
+            <tr><td>Currency</td><td>Org currency is USD, so values show “$”</td><td>Set single currency SAR in Company Information. Do <b>not</b> enable multi-currency until Tawfik confirms, because it can't be reversed.</td></tr>
+            <tr><td>Fiscal year</td><td>Standard, starting January</td><td>ABA's fiscal year start month</td></tr>
+            <tr><td>Folder sharing</td><td>Management folders shared with the CEO role and below</td><td>Which roles count as “VP + Management” in ABA's hierarchy</td></tr>
+            <tr><td>R19 Expected Collections</td><td>Not built</td><td>Finance and billing are outside Salesforce in Phase 1. Needs products and revenue schedules if wanted.</td></tr>
+            <tr><td>Primary Campaign</td><td>Blank in the sample data, so R15 shows only Lead Source</td><td>Whether campaigns will be used</td></tr>
+            <tr><td>Audit-field setting</td><td>“Set Audit Fields upon Record Creation” is on</td><td>Can be switched off now that the data is loaded</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  var esc = function (s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); };
+
+  // ---------------- Management questions
+  var Q = [
+    [1, "How much revenue have we won this month, this quarter, this year?", "Venkatesh – Day 3 34:00", "R01, R02, R03", "D1 row 1"],
+    [2, "How does revenue compare quarter by quarter, this year vs last year?", "Muralidhara – Proposal 14:49", "R04", "D1 row 2"],
+    [3, "What does the pipeline look like by stage and expected close quarter?", "Venkatesh – Day 3 34:53", "R05, R06", "D1 rows 2–3"],
+    [4, "How is each salesperson performing: pipeline, revenue won, win rate?", "Venkatesh – Day 3 35:17", "R07, R08, R09", "D2 row 1"],
+    [5, "Why do we win and why do we lose?", "Venkatesh – Day 3 37:24", "R10 (R10a, R10b)", "D2 row 2"],
+    [6, "Which deals close in the next 30 days and need attention?", "Day 2 35:40 / Day 3 17:04", "R11", "D1 row 3"],
+    [7, "Which deals are stuck, overdue or not updated?", "Architect recommendation", "R12", "D2 row 3"],
+    [8, "Which deals are deferred and what value could come back?", "Venkatesh – Day 3 10:16", "R13", "D2 row 3"],
+    [9, "How much comes from new logos vs existing customers?", "Day 2 32:05", "R14", "D2 row 2"],
+    [10, "Which sources and campaigns generate revenue?", "Day 2 11:46 / 19:49", "R15", "D2 row 3"],
+    [11, "Which industries, segments and countries bring revenue?", "Day 1 G15, Day 2 14:53", "R16", "Report only"],
+    [12, "Which proposals are due to be submitted soon?", "Sushant – Day 3 46:09", "R17", "Report only"],
+    [13, "What are our average deal size and sales cycle?", "Architect recommendation", "R18", "Report only"],
+    [14, "What will we collect next quarter and by year end?", "Venkatesh – Day 3 34:34", "R19 (not built)", "Out of Phase 1 scope"]
+  ];
+  document.getElementById("qrows").innerHTML = Q.map(function (q) {
+    return "<tr><td class='num'>" + q[0] + "</td><td>" + esc(q[1]) + "</td><td style='white-space:nowrap'>" + esc(q[2]) +
+      "</td><td class='mono' style='white-space:nowrap'>" + esc(q[3]) + "</td><td style='white-space:nowrap'>" + esc(q[4]) + "</td></tr>";
+  }).join("");
+
+  // ---------------- Stages
+  var S = [
+    ["Qualification", "10%", "Pipeline", "Open"], ["Solutioning", "20%", "Pipeline", "Open"],
+    ["Proposal Preparation", "40%", "Pipeline", "Open"], ["Internal Review", "50%", "Pipeline", "Open"],
+    ["Proposal Submitted", "60%", "Best Case", "Open"], ["Negotiation", "75%", "Commit", "Open"],
+    ["Verbal Award", "90%", "Commit", "Open"], ["Closed Won", "100%", "Closed", "Closed / Won"],
+    ["Closed Lost", "0%", "Omitted", "Closed"], ["Deferred", "0%", "Omitted", "Open – excluded from pipeline"],
+    ["Old / Archived", "0%", "Omitted", "Open – excluded from pipeline"]
+  ];
+  document.getElementById("stagerows").innerHTML = S.map(function (s) {
+    return "<tr><td>" + esc(s[0]) + "</td><td class='num' style='text-align:left'>" + s[1] + "</td><td>" + s[2] + "</td><td>" + s[3] + "</td></tr>";
+  }).join("");
+
+  // ---------------- Reports
+  var M = "ABA Management Reports", SL = "ABA Sales Reports";
+  var R = [
+    { id: "R01", sec: "Revenue", core: true, folder: M, fmt: "Summary", name: "Revenue Won – YTD by Quarter & Month", api: "R01_Revenue_Won_YTD",
+      purpose: "Revenue won so far this fiscal year, broken down by quarter and month. Answers “how much have we won this year?”.",
+      filters: "Stage = Closed Won · Close Date = Current FY", groups: "Close Date (Fiscal Quarter) → Close Month", cols: "Opportunity Name, Account Name, Opportunity Owner, Type, Amount (Sum)",
+      chart: "Vertical column by fiscal quarter", used: "D1 metric “Revenue Won – YTD”; Home sidebar chart", result: "9 deals", total: "8.9M" },
+    { id: "R02", sec: "Revenue", core: true, folder: M, fmt: "Summary", name: "Revenue Won – This Month (MTD)", api: "R02_Revenue_Won_MTD",
+      purpose: "Month-to-date revenue won, per salesperson.", filters: "Stage = Closed Won · Close Date = This Month", groups: "Opportunity Owner",
+      cols: "Opportunity Name, Account Name, Amount (Sum), Close Date", chart: "–", used: "D1 metric “Revenue Won – MTD”", result: "2 deals", total: "2.75M" },
+    { id: "R03", sec: "Revenue", core: false, folder: M, fmt: "Summary", name: "Revenue Won – This Quarter (QTD)", api: "R03_Revenue_Won_QTD",
+      purpose: "Quarter-to-date revenue won, measured against the quarterly target in the dashboard gauge.", filters: "Stage = Closed Won · Close Date = Current Fiscal Quarter", groups: "Opportunity Owner",
+      cols: "Opportunity Name, Account Name, Amount (Sum), Close Date", chart: "–", used: "D1 gauge “Revenue Won – QTD vs Target” (target 5M)", result: "2 deals", total: "2.75M" },
+    { id: "R04", sec: "Revenue", core: true, folder: M, fmt: "Matrix", name: "Revenue Won – This Year vs Last Year", api: "R04_Revenue_Won_TY_vs_LY",
+      purpose: "Growth trend: each quarter of this year side by side with the same quarter last year.", filters: "Stage = Closed Won · Close Date = Previous + Current FY",
+      groups: "Rows: Close Quarter (Q1–Q4 formula) · Columns: Close Date (Fiscal Year)", cols: "Amount (Sum)", chart: "Grouped column, series = fiscal year",
+      used: "D1 “Revenue by Quarter – This Year vs Last Year”", result: "16 deals", total: "16.17M (FY25 7.27M · FY26 8.9M)" },
+    { id: "R05", sec: "Pipeline", core: true, folder: M, fmt: "Summary", name: "Open Pipeline by Stage", api: "R05_Open_Pipeline_by_Stage",
+      purpose: "Where active deals sit in the sales process. Deferred and Old / Archived are excluded, as agreed on Day 3.", filters: "Opportunity Status = Open · Stage ≠ Deferred, Old / Archived",
+      groups: "Stage", cols: "Opportunity Name, Account, Owner, Amount (Sum), Probability, Expected Revenue (Sum), Close Date, Next Step", chart: "Funnel by stage",
+      used: "D1 metric “Open Pipeline Value” and funnel “Pipeline by Stage”; Home chart", result: "19 deals", total: "31.42M (expected 15.22M)" },
+    { id: "R06", sec: "Pipeline", core: true, folder: M, fmt: "Matrix", name: "Pipeline by Close Quarter (Next 4)", api: "R06_Pipeline_by_Close_Quarter",
+      purpose: "Which revenue is expected in which quarter, and how confident we are (forecast category).", filters: "Status = Open · Stage ≠ Deferred, Old / Archived · Close Date = Current and next 3 fiscal quarters",
+      groups: "Rows: Close Date (Fiscal Quarter) · Columns: Forecast Category", cols: "Amount (Sum)", chart: "Stacked column",
+      used: "D1 “Pipeline by Close Quarter”", result: "17 deals", total: "30.27M" },
+    { id: "R07", sec: "Sales team", core: true, folder: SL, fmt: "Matrix", name: "Pipeline by Salesperson & Stage", api: "R07_Pipeline_by_Salesperson_Stage",
+      purpose: "Each salesperson's workload and how far along their deals are.", filters: "Status = Open · Stage ≠ Deferred, Old / Archived",
+      groups: "Rows: Opportunity Owner · Columns: Stage", cols: "Amount (Sum)", chart: "Stacked horizontal bar", used: "D2 “Pipeline by Salesperson & Stage”", result: "19 deals", total: "31.42M" },
+    { id: "R08", sec: "Sales team", core: true, folder: SL, fmt: "Summary", name: "Revenue Won by Salesperson – YTD", api: "R08_Revenue_Won_by_Salesperson_YTD",
+      purpose: "Leaderboard of revenue won this year, highest first.", filters: "Stage = Closed Won · Close Date = Current FY", groups: "Opportunity Owner, sorted by Sum of Amount descending",
+      cols: "Opportunity Name, Account Name, Amount (Sum), Close Date", chart: "Horizontal bar", used: "D2 “Revenue Won by Salesperson”; Home sidebar chart",
+      result: "9 deals", total: "8.9M (Venkatesh 4.2M · Alburayh 3.3M · Fouad 1.4M)" },
+    { id: "R09", sec: "Sales team", core: true, folder: SL, fmt: "Summary", name: "Win Rate by Salesperson – YTD", api: "R09_Win_Rate_by_Salesperson_YTD",
+      purpose: "Sales effectiveness: the share of closed deals each person won.", filters: "Opportunity Status = Closed · Close Date = Current FY", groups: "Opportunity Owner",
+      cols: "Opportunity Name, Stage, Amount (Sum), Won, Closed · Summary formula Win Rate % = WON:SUM / CLOSED:SUM (percent, 0 dp)", chart: "–",
+      used: "D1 metric “Win Rate YTD”; D2 table “Win Rate by Salesperson”", result: "15 closed deals", total: "60% (Alburayh 80% · Fouad 67% · Venkatesh 43%)" },
+    { id: "R10", sec: "Win-loss", core: true, folder: SL, fmt: "Summary", name: "Win-Loss Analysis by Reason – YTD", api: "R10_Win_Loss_by_Reason_YTD",
+      purpose: "Why we win and why we lose. Needs the Win/Loss Reason picklist to be filled on every closed deal.", filters: "Opportunity Status = Closed · Close Date = Current FY",
+      groups: "Stage (Won / Lost) → Win/Loss Reason", cols: "Opportunity Name, Account, Owner, Amount (Sum), Win/Loss Details", chart: "Stacked horizontal bar",
+      used: "Full analysis report (the dashboard uses R10a and R10b)", result: "15 deals", total: "14.72M" },
+    { id: "R10a", sec: "Win-loss", core: false, folder: SL, fmt: "Summary", name: "Why We Win – YTD", api: "R10A_Why_We_Win_YTD",
+      purpose: "Dashboard source for the “Why we win” donut. A copy of R10 limited to won deals.", filters: "Stage = Closed Won · Close Date = Current FY", groups: "Win/Loss Reason",
+      cols: "Opportunity Name, Account, Owner, Amount (Sum), Win/Loss Details", chart: "Donut", used: "D2 “Why We Win”; Home bottom-right chart",
+      result: "9 deals", total: "8.9M (Price 5.6M · Technical fit 2.2M · Delivery 1.2M)" },
+    { id: "R10b", sec: "Win-loss", core: false, folder: SL, fmt: "Summary", name: "Why We Lose – YTD", api: "R10B_Why_We_Lose_YTD",
+      purpose: "Dashboard source for the “Why we lose” donut.", filters: "Stage = Closed Lost · Close Date = Current FY", groups: "Win/Loss Reason",
+      cols: "Opportunity Name, Account, Owner, Amount (Sum), Win/Loss Details", chart: "Donut", used: "D2 “Why We Lose”",
+      result: "6 deals", total: "5.82M (Budget cut 3.1M · Competitor 2.7M)" },
+    { id: "R11", sec: "Action & hygiene", core: true, folder: SL, fmt: "Tabular", name: "Closing in Next 30 Days", api: "R11_Closing_Next_30_Days",
+      purpose: "Deals to push now. Uses the same rule as the planned 30-day reminder e-mail.", filters: "Status = Open · Stage = Proposal Submitted, Negotiation, Verbal Award · Close Date = Next 30 days",
+      groups: "– (row limit 10, sorted by Close Date ascending)", cols: "Opportunity Name, Account, Owner, Stage, Amount (Sum), Close Date, Next Step", chart: "–",
+      used: "D1 table “Top Deals Closing in 30 Days”", result: "3 deals", total: "4.7M" },
+    { id: "R12", sec: "Action & hygiene", core: false, folder: SL, fmt: "Tabular", name: "Overdue & Stale Opportunities", api: "R12_Overdue_Stale_Opportunities",
+      purpose: "Pipeline hygiene: open deals whose close date has passed or that have had no activity for 30 days.",
+      filters: "Status = Open · (1) Stage ≠ Deferred, Old / Archived · (2) Close Date < TODAY · (3) Last Activity < LAST 30 DAYS · Logic: 1 AND (2 OR 3)",
+      groups: "– (top 10 by Amount)", cols: "Opportunity Name, Owner, Stage, Amount (Sum), Close Date, Last Activity, Last Modified Date", chart: "–",
+      used: "D2 table “Overdue & Stale Deals”", result: "2 deals", total: "1.15M" },
+    { id: "R13", sec: "Action & hygiene", core: false, folder: SL, fmt: "Summary", name: "Deferred Opportunities", api: "R13_Deferred_Opportunities",
+      purpose: "Revenue on hold that could come back later.", filters: "Stage = Deferred", groups: "Opportunity Owner",
+      cols: "Opportunity Name, Account, Amount (Sum), Deferred Date, Win/Loss Details (reason on hold), Close Date", chart: "–", used: "D2 metric “Deferred Value”",
+      result: "5 deals", total: "11.5M" },
+    { id: "R14", sec: "Revenue mix", core: false, folder: M, fmt: "Matrix", name: "Revenue & Pipeline by Type", api: "R14_Revenue_Pipeline_by_Type",
+      purpose: "New logos vs existing customers: won and active open value by opportunity type.", filters: "Close Date = Current FY · Stage ≠ Closed Lost, Deferred, Old / Archived",
+      groups: "Rows: Type · Columns: Won (true / false)", cols: "Amount (Sum)", chart: "Donut by type", used: "D2 “Revenue by Type (New vs Existing)”", result: "21 deals", total: "29.82M" },
+    { id: "R15", sec: "Revenue mix", core: false, folder: M, fmt: "Summary", name: "Revenue by Lead Source & Campaign", api: "R15_Revenue_by_Lead_Source_Campaign",
+      purpose: "Which channels bring revenue (marketing return on investment).", filters: "Stage = Closed Won · Close Date = Current FY", groups: "Lead Source → Primary Campaign Source",
+      cols: "Opportunity Name, Account, Amount (Sum)", chart: "Horizontal bar by lead source", used: "D2 “Revenue by Lead Source”", result: "9 deals", total: "8.9M" },
+    { id: "R16", sec: "Revenue mix", core: false, folder: M, fmt: "Matrix", name: "Revenue by Industry & Country", api: "R16_Revenue_by_Industry_Country",
+      purpose: "Which industries, segments and countries bring revenue.", filters: "Stage = Closed Won · Close Date = Current FY", groups: "Rows: Account Industry · Columns: Billing Country",
+      cols: "Amount (Sum), Account: Segment", chart: "Stacked horizontal bar", used: "Report only", result: "9 deals", total: "8.9M" },
+    { id: "R17", sec: "Bids & efficiency", core: false, folder: SL, fmt: "Tabular", name: "Upcoming Proposal Submissions", api: "R17_Upcoming_Proposal_Submissions",
+      purpose: "Bid workload: proposals due in the next 30 days (internal review one week before).", filters: "Status = Open · Proposal Submission Date = Next 30 days",
+      groups: "– (sorted by Proposal Submission Date)", cols: "Opportunity Name, Account, Owner, Stage, Proposal Submission Date, Amount (Sum)", chart: "–", used: "Report only", result: "1 deal", total: "3.0M" },
+    { id: "R18", sec: "Bids & efficiency", core: false, folder: SL, fmt: "Summary", name: "Average Deal Size & Sales Cycle", api: "R18_Avg_Deal_Size_Sales_Cycle",
+      purpose: "Average won deal size and how long deals take from creation to close.", filters: "Stage = Closed Won · Close Date = LAST 365 DAYS", groups: "Opportunity Owner",
+      cols: "Opportunity Name, Amount (Average), Age (Average), Created Date, Close Date", chart: "–", used: "Report only", result: "10 deals", total: "Avg 965K · avg 94 days" }
+  ];
+
+  var list = document.getElementById("report-list"), countEl = document.getElementById("report-count");
+  list.innerHTML = R.map(function (r) {
+    var folderPill = r.folder === M ? "<span class='pill mgmt'>Management</span>" : "<span class='pill sales'>Sales</span>";
+    return "<details class='rep' data-sec='" + esc(r.sec) + "' data-text='" + esc((r.id + " " + r.name + " " + r.filters + " " + r.groups + " " + r.cols + " " + r.purpose).toLowerCase()) + "'>" +
+      "<summary><span class='rid'>" + r.id + "</span><span class='rname'>" + esc(r.name) +
+      "<small>" + esc(r.sec) + " · " + r.fmt + " · " + folderPill + (r.core ? " <span class='pill core'>CORE</span>" : "") + "</small></span>" +
+      "<span class='rresult'><b>" + esc(r.total.split(" (")[0]) + "</b><br>" + esc(r.result) + "</span></summary>" +
+      "<div class='rbody'><p class='purpose'>" + esc(r.purpose) + "</p><dl class='spec'>" +
+      "<dt>Filters</dt><dd>" + esc(r.filters) + "</dd>" +
+      "<dt>Grouped by</dt><dd>" + esc(r.groups) + "</dd>" +
+      "<dt>Columns</dt><dd>" + esc(r.cols) + "</dd>" +
+      "<dt>Chart</dt><dd>" + esc(r.chart) + "</dd>" +
+      "<dt>Used in</dt><dd>" + esc(r.used) + "</dd>" +
+      "<dt>Result (8 Oct 2026)</dt><dd>" + esc(r.result) + " · " + esc(r.total) + "</dd>" +
+      "<dt>Folder / API name</dt><dd>" + esc(r.folder) + " · <code>" + esc(r.api) + "</code></dd>" +
+      "</dl></div></details>";
+  }).join("");
+
+  var activeSec = "all";
+  function applyFilter() {
+    var q = (document.getElementById("report-search").value || "").trim().toLowerCase(), n = 0;
+    list.querySelectorAll("details.rep").forEach(function (d) {
+      var show = (activeSec === "all" || d.getAttribute("data-sec") === activeSec) && (!q || d.getAttribute("data-text").indexOf(q) !== -1);
+      d.hidden = !show; if (show) n++;
+    });
+    countEl.textContent = n + " of " + R.length + " reports";
+  }
+  document.querySelectorAll(".toolbar .chip").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll(".toolbar .chip").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+      b.setAttribute("aria-pressed", "true"); activeSec = b.getAttribute("data-sec"); applyFilter();
+    });
+  });
+  document.getElementById("report-search").addEventListener("input", applyFilter);
+  applyFilter();
+
+  // ---------------- Dashboards (row, col, rowSpan, colSpan from the deployed metadata)
+  var D = {
+    d1: { title: "ABA Management – Revenue & Pipeline", api: "ABA_Management_Revenue_Pipeline",
+      why: "Revenue won (MTD / QTD / YTD), year-on-year trend, pipeline and the deals to push now.",
+      c: [
+        [0, 0, 4, 2, "Revenue Won – MTD", "Metric", "R02", "2.75M"],
+        [0, 2, 4, 3, "Revenue Won – QTD vs Target", "Gauge · bands 60% / 90% of 5M", "R03", "2.75M (55%)"],
+        [0, 5, 4, 3, "Revenue Won – YTD", "Metric", "R01", "8.9M"],
+        [0, 8, 4, 2, "Open Pipeline Value", "Metric", "R05", "31.4M"],
+        [0, 10, 4, 2, "Win Rate YTD", "Metric · formula", "R09", "60%"],
+        [4, 0, 8, 6, "Revenue by Quarter – This Year vs Last Year", "Grouped column · X Close Quarter, series FY", "R04", ""],
+        [4, 6, 8, 6, "Pipeline by Stage", "Funnel", "R05", ""],
+        [12, 0, 8, 6, "Pipeline by Close Quarter", "Stacked column by forecast category", "R06", ""],
+        [12, 6, 8, 6, "Top Deals Closing in 30 Days", "Lightning table · sorted by close date", "R11", "3 deals"]
+      ] },
+    d2: { title: "ABA Sales Performance & Win-Loss", api: "ABA_Sales_Performance_Win_Loss",
+      why: "Salesperson leaderboard, pipeline coverage, win rate, win/loss reasons, revenue mix and pipeline hygiene.",
+      c: [
+        [0, 0, 8, 4, "Revenue Won by Salesperson", "Horizontal bar · sorted descending", "R08", ""],
+        [0, 4, 8, 4, "Pipeline by Salesperson & Stage", "Stacked horizontal bar", "R07", ""],
+        [0, 8, 8, 4, "Win Rate by Salesperson", "Lightning table · Owner, Win Rate %, Count", "R09", ""],
+        [8, 0, 8, 4, "Why We Win", "Donut", "R10a", "8.9M"],
+        [8, 4, 8, 4, "Why We Lose", "Donut", "R10b", "5.8M"],
+        [8, 8, 8, 4, "Revenue by Type (New vs Existing)", "Donut", "R14", "29.8M"],
+        [16, 0, 8, 4, "Revenue by Lead Source", "Horizontal bar", "R15", ""],
+        [16, 4, 8, 4, "Deferred Value", "Metric", "R13", "11.5M"],
+        [16, 8, 8, 4, "Overdue & Stale Deals", "Lightning table · top 10 by amount", "R12", "2 deals"]
+      ] }
+  };
+  function renderDash(key) {
+    var d = D[key];
+    var cells = d.c.map(function (c) {
+      return "<div class='cell' style='grid-row:" + (c[0] + 1) + " / span " + c[2] + ";grid-column:" + (c[1] + 1) + " / span " + c[3] + "'>" +
+        "<div class='ct'>" + esc(c[4]) + "</div><div class='ck'>" + esc(c[5]) + "</div>" +
+        (c[7] ? "<div class='cv'>" + esc(c[7]) + "</div>" : "") +
+        "<div class='cs" + (c[7] ? "" : "' style='margin-top:auto") + "'>Source: <span class='mono'>" + c[6] + "</span></div></div>";
+    }).join("");
+    document.getElementById("dash-view").innerHTML =
+      "<div class='dash'><div><h3 style='margin-top:0'>" + esc(d.title) + "</h3><p style='margin-bottom:6px'>" + esc(d.why) + "</p>" +
+      "<div class='dash-head'><span>API name <b class='mono'>" + d.api + "</b></span><span>Run as <b>Suraj OD</b></span><span>Filters <b>Opportunity Owner · Account Industry</b></span><span>Components <b>" + d.c.length + "</b></span></div></div>" +
+      "<div class='grid-scroll'><div class='dgrid' aria-label='" + esc(d.title) + " layout'>" + cells + "</div></div></div>";
+  }
+  document.querySelectorAll("[data-dash]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll("[data-dash]").forEach(function (x) { x.setAttribute("aria-pressed", "false"); x.setAttribute("aria-selected", "false"); });
+      b.setAttribute("aria-pressed", "true"); b.setAttribute("aria-selected", "true"); renderDash(b.getAttribute("data-dash"));
+    });
+  });
+  renderDash("d1");
+
+  // ---------------- Change recipes
+  var C = [
+    { t: "Change a report's filter, column or grouping", ui: "Reports tab → folder → report → Edit → Save. Fine for a quick tweak during the demo.",
+      code: ["Edit the report's entry in build_reports() (filters=, columns=, down=, across=).", "Re-run the script and deploy.", "Report names must stay at 40 characters or fewer."] },
+    { t: "Add a new report", ui: "Reports → New Report → Opportunities. Save it to an ABA folder.",
+      code: ["Add one more report(...) call in build_reports() with a new developer name.", "It is added to the manifest automatically."] },
+    { t: "Change opportunity stages", ui: "Setup → Object Manager → Opportunity → Fields & Relationships → Stage.",
+      code: ["Edit standardValueSets/OpportunityStage (probability, forecast category, closed/won).", "If a stage name changes, also update NOT_ACTIVE and the R11 stage list in build_reports.py.", "The win/loss dependency is keyed on “Closed Won” and “Closed Lost”."] },
+    { t: "Change win/loss reasons or offerings", ui: "Setup → Object Manager → Opportunity → Win/Loss Reason → Values, then Field Dependencies to map each value to Won or Lost.",
+      code: ["Edit WON, LOST or OFFERINGS in the data-model generator, or the field XML in objects/Opportunity/fields/.", "Existing records keep their old values. Update them before deactivating a value."] },
+    { t: "Change the quarterly target on the gauge", ui: "Open D1 → Edit → click the QTD gauge → change the segment ranges.",
+      code: ["Set QUARTERLY_TARGET at the top of build_reports.py.", "Bands are calculated as 60% and 90% of the target."] },
+    { t: "Change who the dashboards run as", ui: "Dashboard → Edit → gear icon → View dashboard as.",
+      code: ["Set RUNNING_USER to another username with View All Data."] },
+    { t: "Add a salesperson or industry to the dashboard filters", ui: "Dashboard → Edit → filter → Add value.",
+      code: ["Add the name to OWNERS or INDUSTRIES in build_reports.py."] },
+    { t: "Rearrange the Home page", ui: "Setup → Lightning App Builder → ABA Sales Home Page → drag components → Save. It stays assigned to the Sales app.",
+      code: ["Edit regions in build_home_page(). Dashboard heights are in pixels."] },
+    { t: "Reload or change the sample data", ui: "Edit records directly in the Opportunities tab.",
+      code: ["Edit the two CSVs, update OWNER_MAP if users change, then run build_sample_data.py.", "sf data import tree --plan data/aba/aba-plan.json -o ABA_Dev", "Delete the existing ABA records first, or you will get duplicates."] },
+    { t: "Show amounts in SAR", ui: "Setup → Company Information → Edit → Currency Locale → Arabic (Saudi Arabia). Single currency only.",
+      code: ["Not stored in the project. This is an org setting. Do not enable multi-currency without Tawfik's approval."] }
+  ];
+  document.getElementById("recipes").innerHTML = C.map(function (c) {
+    return "<div class='recipe'><h4>" + esc(c.t) + "</h4><div class='how'>In Salesforce</div><p>" + esc(c.ui) + "</p>" +
+      "<div class='how'>In the project</div><ul>" + c.code.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></div>";
+  }).join("");
+
+  // ---------------- Copy buttons
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var el = document.getElementById(b.getAttribute("data-copy")), text = el.textContent;
+      var done = function () { b.textContent = "Copied"; setTimeout(function () { b.textContent = "Copy"; }, 1500); };
+      try {
+        navigator.clipboard.writeText(text).then(done, function () { selectText(el); });
+      } catch (e) { selectText(el); }
+    });
+  });
+  function selectText(el) { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+})();
+</script>

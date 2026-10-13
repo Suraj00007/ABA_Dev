@@ -1,0 +1,6 @@
+"Id","Name","Type","Status","StartDate","EndDate","IsActive","ParentId","OwnerId","Description","ExpectedRevenue","BudgetedCost","ActualCost","ExpectedResponse","NumberSent"
+"701gK00001Z23vhQAB","GC Product Webinar - Jan 7, 2002","Webinar","Completed","2026-03-10","2026-03-10","true","","005gK00008DyonlQAB","","3000000.0","10000.0","11400.0","10.0","5000.0"
+"701gK00001Z23viQAB","User Conference - Jun 17-19, 2002","Conference","Planned","2026-08-18","2026-08-20","true","","005gK00008DyonlQAB","","5500000.0","100000.0","","15.0","40000.0"
+"701gK00001Z23vjQAB","DM Campaign to Top Customers - Nov 12-23, 2001","Direct Mail","Completed","2026-01-13","2026-01-24","true","","005gK00008DyonlQAB","","2500000.0","25000.0","23500.0","7.0","15000.0"
+"701gK00001Z23vkQAB","International Electrical Engineers Association Trade Show - Mar 4-5, 2002","Trade Show","Planned","2026-05-05","2026-05-06","true","","005gK00008DyonlQAB","","8500000.0","50000.0","","0.0","0.0"
+"701gK00001cSTNFQA4","test","Conference","Planned","","","false","","005gK00008Pc7v1QAB","","","","","0.0","0.0"

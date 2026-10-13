@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Event_Fields_Only_For_Events</fullName>
+    <active>true</active>
+    <description>Only Event campaigns are mapped geographically, so the event location fields must stay empty for every other type.</description>
+    <errorConditionFormula>AND(
+    NOT(ISPICKVAL(Type, &quot;Event&quot;)),
+    OR(
+        NOT(ISBLANK(Event_Venue__c)),
+        NOT(ISBLANK(Event_Street__c)),
+        NOT(ISBLANK(Event_City__c)),
+        NOT(ISBLANK(Event_State__c)),
+        NOT(ISBLANK(Event_Postal_Code__c)),
+        NOT(ISPICKVAL(Event_Country__c, &quot;&quot;)),
+        NOT(ISBLANK(Location_Event__Latitude__s))
+    )
+)</errorConditionFormula>
+    <errorMessage>Event location fields can only be used when the campaign Type is Event. Clear them or change the Type to Event.</errorMessage>
+</ValidationRule>

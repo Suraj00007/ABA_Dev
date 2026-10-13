@@ -1,0 +1,1001 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_01"
+      },
+      "Name": "Desert Bloom Foods – SAP SuccessFactors 2025",
+      "AccountId": "@Acc_DesertBloomFoods",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 900000.0,
+      "CloseDate": "2025-02-23",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "Web",
+      "Proposal_Submission_Date__c": "2025-01-23",
+      "Offering__c": "SAP SuccessFactors",
+      "CreatedDate": "2024-12-24T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Partner (SAP) Influence",
+      "Win_Loss_Details__c": "Won: partner (sap) influence"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_02"
+      },
+      "Name": "Taiba Education Co – SAP SuccessFactors 2025",
+      "AccountId": "@Acc_TaibaEducationCo",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 150000.0,
+      "CloseDate": "2025-04-03",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "SAP Leads",
+      "Proposal_Submission_Date__c": "2025-02-22",
+      "Offering__c": "SAP SuccessFactors",
+      "CreatedDate": "2025-01-16T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Price Competitiveness",
+      "Win_Loss_Details__c": "Won: price competitiveness"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_03"
+      },
+      "Name": "Gulf Petrochem Services – Data & Analytics 2025",
+      "AccountId": "@Acc_GulfPetrochemServices",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Closed Lost",
+      "Probability": 0.0,
+      "Amount": 250000.0,
+      "CloseDate": "2025-08-21",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "SAP Leads",
+      "Proposal_Submission_Date__c": "2025-07-24",
+      "Offering__c": "Data & Analytics",
+      "CreatedDate": "2025-06-10T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Scope Cancelled",
+      "Win_Loss_Details__c": "Lost: scope cancelled"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_04"
+      },
+      "Name": "Gulf Petrochem Services – SAP SuccessFactors 2026",
+      "AccountId": "@Acc_GulfPetrochemServices",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Closed Lost",
+      "Probability": 0.0,
+      "Amount": 150000.0,
+      "CloseDate": "2026-07-29",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "Web",
+      "Proposal_Submission_Date__c": "2026-06-08",
+      "Offering__c": "SAP SuccessFactors",
+      "CreatedDate": "2026-04-18T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Lost to Competitor",
+      "Win_Loss_Details__c": "Lost: lost to competitor"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_05"
+      },
+      "Name": "Oasis Manufacturing – SAP Support (AMS) 2025",
+      "AccountId": "@Acc_OasisManufacturing",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 1500000.0,
+      "CloseDate": "2025-07-09",
+      "Type": "Net New Names",
+      "LeadSource": "Events & Campaigns",
+      "Proposal_Submission_Date__c": "2025-06-02",
+      "Offering__c": "SAP Support (AMS)",
+      "CreatedDate": "2025-04-05T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Partner (SAP) Influence",
+      "Win_Loss_Details__c": "Won: partner (sap) influence"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_06"
+      },
+      "Name": "Qassim Agri Ventures – SAP S/4HANA 2025",
+      "AccountId": "@Acc_QassimAgriVentures",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Closed Lost",
+      "Probability": 0.0,
+      "Amount": 2200000.0,
+      "CloseDate": "2025-03-07",
+      "Type": "Existing Customer – Support",
+      "LeadSource": "SAP Leads",
+      "Proposal_Submission_Date__c": "2025-01-07",
+      "Offering__c": "SAP S/4HANA",
+      "CreatedDate": "2024-11-03T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Budget Cut / No Decision",
+      "Win_Loss_Details__c": "Lost: budget cut / no decision"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_07"
+      },
+      "Name": "Oasis Manufacturing – Cloud Migration 2025",
+      "AccountId": "@Acc_OasisManufacturing",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 750000.0,
+      "CloseDate": "2025-11-07",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "Partner Referral",
+      "Proposal_Submission_Date__c": "2025-09-28",
+      "Offering__c": "Cloud Migration",
+      "CreatedDate": "2025-07-18T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Technical Solution Fit",
+      "Win_Loss_Details__c": "Won: technical solution fit"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_08"
+      },
+      "Name": "Taiba Education Co – Cloud Migration 2026",
+      "AccountId": "@Acc_TaibaEducationCo",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 750000.0,
+      "CloseDate": "2026-04-09",
+      "Type": "Existing Customer – Change Request",
+      "LeadSource": "Phone Inquiry",
+      "Proposal_Submission_Date__c": "2026-03-08",
+      "Offering__c": "Cloud Migration",
+      "CreatedDate": "2026-02-02T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Price Competitiveness",
+      "Win_Loss_Details__c": "Won: price competitiveness"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_09"
+      },
+      "Name": "Desert Bloom Foods – SAP SuccessFactors 2026",
+      "AccountId": "@Acc_DesertBloomFoods",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 1200000.0,
+      "CloseDate": "2026-03-12",
+      "Type": "Existing Customer – Support",
+      "LeadSource": "Partner Referral",
+      "Proposal_Submission_Date__c": "2026-01-11",
+      "Offering__c": "SAP SuccessFactors",
+      "CreatedDate": "2025-12-01T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Price Competitiveness",
+      "Win_Loss_Details__c": "Won: price competitiveness"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_10"
+      },
+      "Name": "Qassim Agri Ventures – SAP Support (AMS) 2026",
+      "AccountId": "@Acc_QassimAgriVentures",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Closed Lost",
+      "Probability": 0.0,
+      "Amount": 2200000.0,
+      "CloseDate": "2026-05-28",
+      "Type": "Existing Customer – Support",
+      "LeadSource": "SAP Leads",
+      "Proposal_Submission_Date__c": "2026-04-29",
+      "Offering__c": "SAP Support (AMS)",
+      "CreatedDate": "2026-03-12T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Budget Cut / No Decision",
+      "Win_Loss_Details__c": "Lost: budget cut / no decision"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_11"
+      },
+      "Name": "Qassim Agri Ventures – SAP S/4HANA 2025",
+      "AccountId": "@Acc_QassimAgriVentures",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Closed Lost",
+      "Probability": 0.0,
+      "Amount": 150000.0,
+      "CloseDate": "2025-11-18",
+      "Type": "Existing Customer – Change Request",
+      "LeadSource": "Sales Outreach",
+      "Proposal_Submission_Date__c": "2025-10-06",
+      "Offering__c": "SAP S/4HANA",
+      "CreatedDate": "2025-08-12T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Budget Cut / No Decision",
+      "Win_Loss_Details__c": "Lost: budget cut / no decision"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_12"
+      },
+      "Name": "Desert Bloom Foods – SAP S/4HANA 2026",
+      "AccountId": "@Acc_DesertBloomFoods",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 1200000.0,
+      "CloseDate": "2026-01-03",
+      "Type": "Existing Customer – Upgrade/Upsell",
+      "LeadSource": "Partner Referral",
+      "Proposal_Submission_Date__c": "2025-11-08",
+      "Offering__c": "SAP S/4HANA",
+      "CreatedDate": "2025-09-07T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Price Competitiveness",
+      "Win_Loss_Details__c": "Won: price competitiveness"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_13"
+      },
+      "Name": "Red Sea Logistics – SAP SuccessFactors 2026",
+      "AccountId": "@Acc_RedSeaLogistics",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Closed Lost",
+      "Probability": 0.0,
+      "Amount": 900000.0,
+      "CloseDate": "2026-02-09",
+      "Type": "Existing Customer – Change Request",
+      "LeadSource": "SAP Leads",
+      "Proposal_Submission_Date__c": "2026-01-10",
+      "Offering__c": "SAP SuccessFactors",
+      "CreatedDate": "2025-11-02T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Budget Cut / No Decision",
+      "Win_Loss_Details__c": "Lost: budget cut / no decision"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_14"
+      },
+      "Name": "Taiba Education Co – SAP Support (AMS) 2026",
+      "AccountId": "@Acc_TaibaEducationCo",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Closed Lost",
+      "Probability": 0.0,
+      "Amount": 320000.0,
+      "CloseDate": "2026-03-21",
+      "Type": "Existing Customer – Change Request",
+      "LeadSource": "Phone Inquiry",
+      "Proposal_Submission_Date__c": "2026-01-29",
+      "Offering__c": "SAP Support (AMS)",
+      "CreatedDate": "2025-12-29T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Lost to Competitor",
+      "Win_Loss_Details__c": "Lost: lost to competitor"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_15"
+      },
+      "Name": "Red Sea Logistics – SAP S/4HANA 2025",
+      "AccountId": "@Acc_RedSeaLogistics",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 320000.0,
+      "CloseDate": "2025-06-08",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "Phone Inquiry",
+      "Proposal_Submission_Date__c": "2025-05-14",
+      "Offering__c": "SAP S/4HANA",
+      "CreatedDate": "2025-04-06T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Technical Solution Fit",
+      "Win_Loss_Details__c": "Won: technical solution fit"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_16"
+      },
+      "Name": "Emirates Facility Mgmt – SAP Support (AMS) 2025",
+      "AccountId": "@Acc_EmiratesFacilityMgmt",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 150000.0,
+      "CloseDate": "2025-06-03",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "Events & Campaigns",
+      "Proposal_Submission_Date__c": "2025-04-19",
+      "Offering__c": "SAP Support (AMS)",
+      "CreatedDate": "2025-03-05T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Customer Relationship / Incumbent",
+      "Win_Loss_Details__c": "Won: customer relationship / incumbent"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_17"
+      },
+      "Name": "Bahrain Telecom Partners – SAP S/4HANA 2026",
+      "AccountId": "@Acc_BahrainTelecomPartners",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 1200000.0,
+      "CloseDate": "2026-07-31",
+      "Type": "Existing Customer – Change Request",
+      "LeadSource": "Sales Outreach",
+      "Proposal_Submission_Date__c": "2026-06-11",
+      "Offering__c": "SAP S/4HANA",
+      "CreatedDate": "2026-04-20T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Delivery Capability & References",
+      "Win_Loss_Details__c": "Won: delivery capability & references"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_18"
+      },
+      "Name": "Riyadh Smart Utilities – SAP S/4HANA 2025",
+      "AccountId": "@Acc_RiyadhSmartUtilities",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Closed Lost",
+      "Probability": 0.0,
+      "Amount": 450000.0,
+      "CloseDate": "2025-03-14",
+      "Type": "Existing Customer – Support",
+      "LeadSource": "Events & Campaigns",
+      "Proposal_Submission_Date__c": "2025-02-07",
+      "Offering__c": "SAP S/4HANA",
+      "CreatedDate": "2024-12-10T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Budget Cut / No Decision",
+      "Win_Loss_Details__c": "Lost: budget cut / no decision"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_19"
+      },
+      "Name": "Gulf Petrochem Services – SAP S/4HANA 2026",
+      "AccountId": "@Acc_GulfPetrochemServices",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 150000.0,
+      "CloseDate": "2026-08-08",
+      "Type": "Net New Names",
+      "LeadSource": "Web",
+      "Proposal_Submission_Date__c": "2026-06-21",
+      "Offering__c": "SAP S/4HANA",
+      "CreatedDate": "2026-04-16T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Price Competitiveness",
+      "Win_Loss_Details__c": "Won: price competitiveness"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_20"
+      },
+      "Name": "Al Noor Healthcare – Data & Analytics 2025",
+      "AccountId": "@Acc_AlNoorHealthcare",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Closed Lost",
+      "Probability": 0.0,
+      "Amount": 900000.0,
+      "CloseDate": "2025-06-06",
+      "Type": "Net New Names",
+      "LeadSource": "Web",
+      "Proposal_Submission_Date__c": "2025-04-19",
+      "Offering__c": "Data & Analytics",
+      "CreatedDate": "2025-02-05T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Lost to Competitor",
+      "Win_Loss_Details__c": "Lost: lost to competitor"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_21"
+      },
+      "Name": "Khaleej Finance House – Cloud Migration 2026",
+      "AccountId": "@Acc_KhaleejFinanceHouse",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 1200000.0,
+      "CloseDate": "2026-05-15",
+      "Type": "Existing Customer – Support",
+      "LeadSource": "Sales Outreach",
+      "Proposal_Submission_Date__c": "2026-04-14",
+      "Offering__c": "Cloud Migration",
+      "CreatedDate": "2026-03-10T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Technical Solution Fit",
+      "Win_Loss_Details__c": "Won: technical solution fit"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_22"
+      },
+      "Name": "Emirates Facility Mgmt – Cloud Migration 2025",
+      "AccountId": "@Acc_EmiratesFacilityMgmt",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 3500000.0,
+      "CloseDate": "2025-06-19",
+      "Type": "Existing Customer – Upgrade/Upsell",
+      "LeadSource": "Sales Outreach",
+      "Proposal_Submission_Date__c": "2025-04-22",
+      "Offering__c": "Cloud Migration",
+      "CreatedDate": "2025-03-11T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Technical Solution Fit",
+      "Win_Loss_Details__c": "Won: technical solution fit"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_23"
+      },
+      "Name": "Taiba Education Co – SAP S/4HANA 2025",
+      "AccountId": "@Acc_TaibaEducationCo",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Closed Lost",
+      "Probability": 0.0,
+      "Amount": 1500000.0,
+      "CloseDate": "2025-11-06",
+      "Type": "Existing Customer – Support",
+      "LeadSource": "Phone Inquiry",
+      "Proposal_Submission_Date__c": "2025-09-26",
+      "Offering__c": "SAP S/4HANA",
+      "CreatedDate": "2025-08-08T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Pricing / Commercial",
+      "Win_Loss_Details__c": "Lost: pricing / commercial"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_24"
+      },
+      "Name": "Desert Bloom Foods – SAP SuccessFactors 2026",
+      "AccountId": "@Acc_DesertBloomFoods",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Closed Lost",
+      "Probability": 0.0,
+      "Amount": 1500000.0,
+      "CloseDate": "2026-07-13",
+      "Type": "Existing Customer – Upgrade/Upsell",
+      "LeadSource": "Phone Inquiry",
+      "Proposal_Submission_Date__c": "2026-06-04",
+      "Offering__c": "SAP SuccessFactors",
+      "CreatedDate": "2026-04-09T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Lost to Competitor",
+      "Win_Loss_Details__c": "Lost: lost to competitor"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_25"
+      },
+      "Name": "Riyadh Smart Utilities – SAP SuccessFactors 2026",
+      "AccountId": "@Acc_RiyadhSmartUtilities",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 450000.0,
+      "CloseDate": "2026-06-19",
+      "Type": "Existing Customer – Change Request",
+      "LeadSource": "Partner Referral",
+      "Proposal_Submission_Date__c": "2026-05-24",
+      "Offering__c": "SAP SuccessFactors",
+      "CreatedDate": "2026-03-22T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Price Competitiveness",
+      "Win_Loss_Details__c": "Won: price competitiveness"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_26"
+      },
+      "Name": "Al Noor Healthcare – Data & Analytics 2026",
+      "AccountId": "@Acc_AlNoorHealthcare",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Closed Lost",
+      "Probability": 0.0,
+      "Amount": 750000.0,
+      "CloseDate": "2026-04-07",
+      "Type": "Existing Customer – Upgrade/Upsell",
+      "LeadSource": "Web",
+      "Proposal_Submission_Date__c": "2026-02-18",
+      "Offering__c": "Data & Analytics",
+      "CreatedDate": "2025-12-10T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Lost to Competitor",
+      "Win_Loss_Details__c": "Lost: lost to competitor"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_27"
+      },
+      "Name": "Al Noor Healthcare – Cloud Migration 2027",
+      "AccountId": "@Acc_AlNoorHealthcare",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Proposal Preparation",
+      "Probability": 40.0,
+      "Amount": 450000.0,
+      "CloseDate": "2027-01-22",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "Web",
+      "Proposal_Submission_Date__c": "2026-11-28",
+      "Offering__c": "Cloud Migration",
+      "CreatedDate": "2026-09-21T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_28"
+      },
+      "Name": "Khaleej Finance House – SAP Support (AMS) 2026",
+      "AccountId": "@Acc_KhaleejFinanceHouse",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Qualification",
+      "Probability": 10.0,
+      "Amount": 3000000.0,
+      "CloseDate": "2026-12-10",
+      "Type": "Existing Customer – Upgrade/Upsell",
+      "LeadSource": "SAP Leads",
+      "Proposal_Submission_Date__c": "2026-10-22",
+      "Offering__c": "SAP Support (AMS)",
+      "CreatedDate": "2026-09-13T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_29"
+      },
+      "Name": "Red Sea Logistics – Cloud Migration 2026",
+      "AccountId": "@Acc_RedSeaLogistics",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Proposal Preparation",
+      "Probability": 40.0,
+      "Amount": 3000000.0,
+      "CloseDate": "2026-11-23",
+      "Type": "Existing Customer – Change Request",
+      "LeadSource": "Sales Outreach",
+      "Proposal_Submission_Date__c": "2026-10-04",
+      "Offering__c": "Cloud Migration",
+      "CreatedDate": "2026-08-19T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_30"
+      },
+      "Name": "Najd Retail Group – SAP SuccessFactors 2026",
+      "AccountId": "@Acc_NajdRetailGroup",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Solutioning",
+      "Probability": 20.0,
+      "Amount": 320000.0,
+      "CloseDate": "2026-10-24",
+      "Type": "Existing Customer – Change Request",
+      "LeadSource": "Sales Outreach",
+      "Proposal_Submission_Date__c": "2026-09-20",
+      "Offering__c": "SAP SuccessFactors",
+      "CreatedDate": "2026-07-29T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_31"
+      },
+      "Name": "Red Sea Logistics – Data & Analytics 2027",
+      "AccountId": "@Acc_RedSeaLogistics",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Internal Review",
+      "Probability": 50.0,
+      "Amount": 2200000.0,
+      "CloseDate": "2027-04-07",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "Phone Inquiry",
+      "Proposal_Submission_Date__c": "2027-03-04",
+      "Offering__c": "Data & Analytics",
+      "CreatedDate": "2026-09-01T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_32"
+      },
+      "Name": "Gulf Petrochem Services – SAP S/4HANA 2026",
+      "AccountId": "@Acc_GulfPetrochemServices",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Negotiation",
+      "Probability": 75.0,
+      "Amount": 3500000.0,
+      "CloseDate": "2026-12-01",
+      "Type": "Existing Customer – Upgrade/Upsell",
+      "LeadSource": "SAP Leads",
+      "Proposal_Submission_Date__c": "2026-10-04",
+      "Offering__c": "SAP S/4HANA",
+      "CreatedDate": "2026-07-29T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_33"
+      },
+      "Name": "Al Noor Healthcare – SAP SuccessFactors 2027",
+      "AccountId": "@Acc_AlNoorHealthcare",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Proposal Preparation",
+      "Probability": 40.0,
+      "Amount": 150000.0,
+      "CloseDate": "2027-01-26",
+      "Type": "Existing Customer – Upgrade/Upsell",
+      "LeadSource": "Events & Campaigns",
+      "Proposal_Submission_Date__c": "2026-12-14",
+      "Offering__c": "SAP SuccessFactors",
+      "CreatedDate": "2026-10-01T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_34"
+      },
+      "Name": "Desert Bloom Foods – SAP Support (AMS) 2026",
+      "AccountId": "@Acc_DesertBloomFoods",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Internal Review",
+      "Probability": 50.0,
+      "Amount": 1500000.0,
+      "CloseDate": "2026-12-16",
+      "Type": "Existing Customer – Support",
+      "LeadSource": "SAP Leads",
+      "Proposal_Submission_Date__c": "2026-11-18",
+      "Offering__c": "SAP Support (AMS)",
+      "CreatedDate": "2026-09-26T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_35"
+      },
+      "Name": "Bahrain Telecom Partners – Data & Analytics 2027",
+      "AccountId": "@Acc_BahrainTelecomPartners",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Internal Review",
+      "Probability": 50.0,
+      "Amount": 1500000.0,
+      "CloseDate": "2027-06-23",
+      "Type": "Existing Customer – Upgrade/Upsell",
+      "LeadSource": "Events & Campaigns",
+      "Proposal_Submission_Date__c": "2027-05-21",
+      "Offering__c": "Data & Analytics",
+      "CreatedDate": "2026-09-21T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_36"
+      },
+      "Name": "Taiba Education Co – SAP S/4HANA 2027",
+      "AccountId": "@Acc_TaibaEducationCo",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Verbal Award",
+      "Probability": 90.0,
+      "Amount": 1200000.0,
+      "CloseDate": "2027-01-11",
+      "Type": "Existing Customer – Upgrade/Upsell",
+      "LeadSource": "Phone Inquiry",
+      "Proposal_Submission_Date__c": "2026-12-17",
+      "Offering__c": "SAP S/4HANA",
+      "CreatedDate": "2026-09-16T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_37"
+      },
+      "Name": "Khaleej Finance House – Data & Analytics 2026",
+      "AccountId": "@Acc_KhaleejFinanceHouse",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Qualification",
+      "Probability": 10.0,
+      "Amount": 3500000.0,
+      "CloseDate": "2026-11-10",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "Events & Campaigns",
+      "Proposal_Submission_Date__c": "2026-09-26",
+      "Offering__c": "Data & Analytics",
+      "CreatedDate": "2026-07-31T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_38"
+      },
+      "Name": "Taiba Education Co – Cloud Migration 2026",
+      "AccountId": "@Acc_TaibaEducationCo",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Proposal Submitted",
+      "Probability": 60.0,
+      "Amount": 250000.0,
+      "CloseDate": "2026-11-08",
+      "Type": "Existing Customer – Support",
+      "LeadSource": "Web",
+      "Proposal_Submission_Date__c": "2026-09-29",
+      "Offering__c": "Cloud Migration",
+      "CreatedDate": "2026-07-27T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_39"
+      },
+      "Name": "Najd Retail Group – Data & Analytics 2026",
+      "AccountId": "@Acc_NajdRetailGroup",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Proposal Submitted",
+      "Probability": 60.0,
+      "Amount": 1200000.0,
+      "CloseDate": "2026-10-24",
+      "Type": "Existing Customer – Support",
+      "LeadSource": "Events & Campaigns",
+      "Proposal_Submission_Date__c": "2026-09-25",
+      "Offering__c": "Data & Analytics",
+      "CreatedDate": "2026-07-16T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_40"
+      },
+      "Name": "Taiba Education Co – Data & Analytics 2027",
+      "AccountId": "@Acc_TaibaEducationCo",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Solutioning",
+      "Probability": 20.0,
+      "Amount": 1500000.0,
+      "CloseDate": "2027-02-28",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "SAP Leads",
+      "Proposal_Submission_Date__c": "2027-01-06",
+      "Offering__c": "Data & Analytics",
+      "CreatedDate": "2026-08-27T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_41"
+      },
+      "Name": "Taiba Education Co – SAP SuccessFactors 2027",
+      "AccountId": "@Acc_TaibaEducationCo",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Proposal Submitted",
+      "Probability": 60.0,
+      "Amount": 3500000.0,
+      "CloseDate": "2027-02-19",
+      "Type": "Existing Customer – Change Request",
+      "LeadSource": "Phone Inquiry",
+      "Proposal_Submission_Date__c": "2026-12-21",
+      "Offering__c": "SAP SuccessFactors",
+      "CreatedDate": "2026-10-01T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_42"
+      },
+      "Name": "Riyadh Smart Utilities – SAP S/4HANA 2026",
+      "AccountId": "@Acc_RiyadhSmartUtilities",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Internal Review",
+      "Probability": 50.0,
+      "Amount": 900000.0,
+      "CloseDate": "2026-08-05",
+      "Type": "Net New Names",
+      "LeadSource": "Phone Inquiry",
+      "Proposal_Submission_Date__c": "2026-06-26",
+      "Offering__c": "SAP S/4HANA",
+      "CreatedDate": "2026-05-10T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_43"
+      },
+      "Name": "Bahrain Telecom Partners – SAP Support (AMS) 2026",
+      "AccountId": "@Acc_BahrainTelecomPartners",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Verbal Award",
+      "Probability": 90.0,
+      "Amount": 250000.0,
+      "CloseDate": "2026-09-30",
+      "Type": "Existing Customer – Support",
+      "LeadSource": "Phone Inquiry",
+      "Proposal_Submission_Date__c": "2026-08-13",
+      "Offering__c": "SAP Support (AMS)",
+      "CreatedDate": "2026-06-20T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_44"
+      },
+      "Name": "Khaleej Finance House – SAP SuccessFactors 2027",
+      "AccountId": "@Acc_KhaleejFinanceHouse",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Deferred",
+      "Probability": 0.0,
+      "Amount": 3500000.0,
+      "CloseDate": "2027-03-04",
+      "Type": "Existing Customer – Upgrade/Upsell",
+      "LeadSource": "Sales Outreach",
+      "Proposal_Submission_Date__c": "2027-01-13",
+      "Offering__c": "SAP SuccessFactors",
+      "CreatedDate": "2026-09-16T09:00:00.000+0000",
+      "Win_Loss_Details__c": "Customer budget on hold"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_45"
+      },
+      "Name": "Al Noor Healthcare – SAP SuccessFactors 2027",
+      "AccountId": "@Acc_AlNoorHealthcare",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Deferred",
+      "Probability": 0.0,
+      "Amount": 3500000.0,
+      "CloseDate": "2027-08-23",
+      "Type": "Existing Customer – Support",
+      "LeadSource": "SAP Leads",
+      "Proposal_Submission_Date__c": "2027-06-27",
+      "Offering__c": "SAP SuccessFactors",
+      "CreatedDate": "2026-09-11T09:00:00.000+0000",
+      "Win_Loss_Details__c": "Customer budget on hold"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_46"
+      },
+      "Name": "Al Noor Healthcare – SAP Support (AMS) 2027",
+      "AccountId": "@Acc_AlNoorHealthcare",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Deferred",
+      "Probability": 0.0,
+      "Amount": 750000.0,
+      "CloseDate": "2027-03-03",
+      "Type": "Existing Customer – Support",
+      "LeadSource": "Events & Campaigns",
+      "Proposal_Submission_Date__c": "2027-01-14",
+      "Offering__c": "SAP Support (AMS)",
+      "CreatedDate": "2026-09-06T09:00:00.000+0000",
+      "Win_Loss_Details__c": "Customer budget on hold"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_47"
+      },
+      "Name": "Khaleej Finance House – Cloud Migration 2027",
+      "AccountId": "@Acc_KhaleejFinanceHouse",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Deferred",
+      "Probability": 0.0,
+      "Amount": 3500000.0,
+      "CloseDate": "2027-01-24",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "Events & Campaigns",
+      "Proposal_Submission_Date__c": "2026-12-06",
+      "Offering__c": "Cloud Migration",
+      "CreatedDate": "2026-09-01T09:00:00.000+0000",
+      "Win_Loss_Details__c": "Customer budget on hold"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_48"
+      },
+      "Name": "Emirates Facility Mgmt – Data & Analytics 2027",
+      "AccountId": "@Acc_EmiratesFacilityMgmt",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Deferred",
+      "Probability": 0.0,
+      "Amount": 250000.0,
+      "CloseDate": "2027-03-13",
+      "Type": "Net New Names",
+      "LeadSource": "Partner Referral",
+      "Proposal_Submission_Date__c": "2027-02-02",
+      "Offering__c": "Data & Analytics",
+      "CreatedDate": "2026-08-27T09:00:00.000+0000",
+      "Win_Loss_Details__c": "Customer budget on hold"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_49"
+      },
+      "Name": "Najd Retail Group – SAP S/4HANA 2026",
+      "AccountId": "@Acc_NajdRetailGroup",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 1800000.0,
+      "CloseDate": "2026-10-02",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "Sales Outreach",
+      "Proposal_Submission_Date__c": "2026-09-02",
+      "Offering__c": "SAP S/4HANA",
+      "CreatedDate": "2026-07-13T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Price Competitiveness",
+      "Win_Loss_Details__c": "Won: price competitiveness"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_50"
+      },
+      "Name": "Al Noor Healthcare – SAP SuccessFactors 2026",
+      "AccountId": "@Acc_AlNoorHealthcare",
+      "OwnerId": "005gK00008Pc7v1QAB",
+      "StageName": "Closed Won",
+      "Probability": 100.0,
+      "Amount": 950000.0,
+      "CloseDate": "2026-10-06",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "Sales Outreach",
+      "Proposal_Submission_Date__c": "2026-09-06",
+      "Offering__c": "SAP SuccessFactors",
+      "CreatedDate": "2026-07-10T09:00:00.000+0000",
+      "Win_Loss_Reason__c": "Technical Solution Fit",
+      "Win_Loss_Details__c": "Won: technical solution fit"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_51"
+      },
+      "Name": "Riyadh Smart Utilities – Data & Analytics 2026",
+      "AccountId": "@Acc_RiyadhSmartUtilities",
+      "OwnerId": "005gK00008T6tfMQAR",
+      "StageName": "Negotiation",
+      "Probability": 75.0,
+      "Amount": 2200000.0,
+      "CloseDate": "2026-10-30",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "Sales Outreach",
+      "Proposal_Submission_Date__c": "2026-09-30",
+      "Offering__c": "Data & Analytics",
+      "CreatedDate": "2026-07-27T09:00:00.000+0000"
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "referenceId": "Opp_52"
+      },
+      "Name": "Khaleej Finance House – Cloud Migration 2026",
+      "AccountId": "@Acc_KhaleejFinanceHouse",
+      "OwnerId": "005gK00008T6sxlQAB",
+      "StageName": "Verbal Award",
+      "Probability": 90.0,
+      "Amount": 1300000.0,
+      "CloseDate": "2026-10-20",
+      "Type": "Existing Customer – New Opportunity",
+      "LeadSource": "Sales Outreach",
+      "Proposal_Submission_Date__c": "2026-09-20",
+      "Offering__c": "Cloud Migration",
+      "CreatedDate": "2026-07-10T09:00:00.000+0000"
+    }
+  ]
+}

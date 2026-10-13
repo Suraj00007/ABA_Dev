@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Allows setting Created Date / Created By when loading historical ABA opportunity data.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ABA Historical Data Load</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>CreateAuditFields</name>
+    </userPermissions>
+</PermissionSet>

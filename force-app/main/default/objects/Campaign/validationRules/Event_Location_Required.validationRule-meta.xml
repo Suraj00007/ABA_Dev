@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Event_Location_Required</fullName>
+    <active>true</active>
+    <description>Event campaigns must have at least a city and a country so they can be mapped and reported by geography.</description>
+    <errorConditionFormula>AND(
+    ISPICKVAL(Type, &quot;Event&quot;),
+    OR(
+        ISBLANK(Event_City__c),
+        ISPICKVAL(Event_Country__c, &quot;&quot;)
+    )
+)</errorConditionFormula>
+    <errorMessage>An Event campaign needs at least an Event City and Event Country so it can be shown on the map.</errorMessage>
+</ValidationRule>

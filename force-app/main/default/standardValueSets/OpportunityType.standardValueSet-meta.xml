@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Net New Names</fullName>
+        <default>false</default>
+        <label>Net New Names</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Existing Customer – Upgrade/Upsell</fullName>
+        <default>false</default>
+        <label>Existing Customer – Upgrade/Upsell</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Existing Customer – Support</fullName>
+        <default>false</default>
+        <label>Existing Customer – Support</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Existing Customer – Change Request</fullName>
+        <default>false</default>
+        <label>Existing Customer – Change Request</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Existing Customer – New Opportunity</fullName>
+        <default>false</default>
+        <label>Existing Customer – New Opportunity</label>
+    </standardValue>
+</StandardValueSet>

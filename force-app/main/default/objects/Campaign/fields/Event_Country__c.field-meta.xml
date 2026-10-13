@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Event_Country__c</fullName>
+    <description>Country where the event takes place. Required for Event campaigns; used to group events by geography in reports.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Country where the event takes place. Required for Event campaigns.</inlineHelpText>
+    <label>Event Country</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Saudi Arabia</fullName>
+                <default>false</default>
+                <label>Saudi Arabia</label>
+            </value>
+            <value>
+                <fullName>United Arab Emirates</fullName>
+                <default>false</default>
+                <label>United Arab Emirates</label>
+            </value>
+            <value>
+                <fullName>Bahrain</fullName>
+                <default>false</default>
+                <label>Bahrain</label>
+            </value>
+            <value>
+                <fullName>Qatar</fullName>
+                <default>false</default>
+                <label>Qatar</label>
+            </value>
+            <value>
+                <fullName>Kuwait</fullName>
+                <default>false</default>
+                <label>Kuwait</label>
+            </value>
+            <value>
+                <fullName>Oman</fullName>
+                <default>false</default>
+                <label>Oman</label>
+            </value>
+            <value>
+                <fullName>Egypt</fullName>
+                <default>false</default>
+                <label>Egypt</label>
+            </value>
+            <value>
+                <fullName>Jordan</fullName>
+                <default>false</default>
+                <label>Jordan</label>
+            </value>
+            <value>
+                <fullName>India</fullName>
+                <default>false</default>
+                <label>India</label>
+            </value>
+            <value>
+                <fullName>United Kingdom</fullName>
+                <default>false</default>
+                <label>United Kingdom</label>
+            </value>
+            <value>
+                <fullName>United States</fullName>
+                <default>false</default>
+                <label>United States</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Close_Quarter__c</fullName>
+    <description>Fiscal quarter of the close date without the year (Q1-Q4), used to compare quarters across years. Assumes a January fiscal year start.</description>
+    <externalId>false</externalId>
+    <formula>&quot;Q&quot; &amp; TEXT(CEILING(MONTH(CloseDate) / 3))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Quarter of the close date (Q1-Q4) for year-on-year comparisons.</inlineHelpText>
+    <label>Close Quarter</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

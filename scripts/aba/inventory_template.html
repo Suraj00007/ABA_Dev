@@ -1,0 +1,435 @@
+<title>ABA_Dev Change Inventory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky contents rail + one wide column of ledger tables; each table scrolls inside its own box. */
+:root {
+  --bg: #F3F6F7; --surface: #FFFFFF; --sunk: #EAF0F2; --fg: #15222C; --muted: #566572; --line: #D6DEE3;
+  --accent: #0C6B68; --accent-soft: #DDEFED;
+  --created: #1F6F3D; --created-soft: #DFF1E5;
+  --changed: #2F4E8C; --changed-soft: #E2E9F6;
+  --removed: #A3352B; --removed-soft: #F8E1DE;
+  --flag: #9A5B0B; --flag-soft: #FBEFD9;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --radius: 8px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E151B; --surface: #15202A; --sunk: #1B2833; --fg: #E4EBEF; --muted: #97A6B2; --line: #283844;
+    --accent: #56B8B2; --accent-soft: #163331; --created: #7FD39B; --created-soft: #173323; --changed: #8FAEEB; --changed-soft: #1E2A44;
+    --removed: #F0958B; --removed-soft: #3D1E1B; --flag: #E7B567; --flag-soft: #3A2C14; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E151B; --surface: #15202A; --sunk: #1B2833; --fg: #E4EBEF; --muted: #97A6B2; --line: #283844;
+  --accent: #56B8B2; --accent-soft: #163331; --created: #7FD39B; --created-soft: #173323; --changed: #8FAEEB; --changed-soft: #1E2A44;
+  --removed: #F0958B; --removed-soft: #3D1E1B; --flag: #E7B567; --flag-soft: #3A2C14; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 14.5px; line-height: 1.55; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 80px; display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 36px; }
+@media (max-width: 900px) { .wrap { grid-template-columns: minmax(0, 1fr); gap: 18px; } }
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 20px); align-self: start; font-size: 13.5px; }
+nav.toc .brand { font-family: var(--font-display); font-size: 20px; font-weight: 600; line-height: 1.2; }
+nav.toc .sub { color: var(--muted); font-size: 12.5px; margin: 4px 0 16px; }
+nav.toc ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+nav.toc a { display: flex; justify-content: space-between; gap: 8px; padding: 5px 10px; border-radius: 6px; color: var(--muted); text-decoration: none; }
+nav.toc a span { font-variant-numeric: tabular-nums; font-size: 12px; }
+nav.toc a:hover, nav.toc a:focus-visible { background: var(--sunk); color: var(--fg); outline: none; }
+@media (max-width: 900px) { nav.toc { position: static; } nav.toc ol { display: flex; flex-wrap: wrap; gap: 6px; } nav.toc a { border: 1px solid var(--line); padding: 4px 10px; } }
+main { min-width: 0; display: grid; gap: 52px; }
+section { min-width: 0; scroll-margin-top: 20px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(28px, 4vw, 40px); }
+h2 { font-size: 26px; margin-bottom: 6px; }
+h3 { font-size: 18px; margin: 24px 0 8px; }
+p { margin: 0 0 12px; max-width: 74ch; }
+.lede { font-size: 16.5px; color: var(--muted); }
+.eyebrow { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.09em; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
+.intro { color: var(--muted); margin-bottom: 16px; }
+code, .mono { font-family: var(--font-mono); font-size: 0.86em; }
+code { background: var(--sunk); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; font-size: 13px; color: var(--muted); }
+.meta b { color: var(--fg); font-weight: 600; }
+.figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin-top: 22px; }
+.figure { background: var(--surface); padding: 13px 15px; }
+.figure .v { font-family: var(--font-display); font-size: 27px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.figure .l { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.table-scroll.tall { max-height: 640px; overflow-y: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; vertical-align: top; padding: 8px 11px; border-bottom: 1px solid var(--line); }
+th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; background: var(--sunk); white-space: nowrap; position: sticky; top: 0; z-index: 1; }
+tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+td.nowrap { white-space: nowrap; }
+td.id { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+.pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.Created { background: var(--created-soft); color: var(--created); }
+.pill.Changed { background: var(--changed-soft); color: var(--changed); }
+.pill.Deleted, .pill.Deactivated { background: var(--removed-soft); color: var(--removed); }
+.pill.Assigned { background: var(--accent-soft); color: var(--accent); }
+.pill.stage { background: var(--sunk); color: var(--fg); font-weight: 600; }
+.pill.won { background: var(--created-soft); color: var(--created); }
+.pill.lost { background: var(--removed-soft); color: var(--removed); }
+.pill.def { background: var(--flag-soft); color: var(--flag); }
+.callout { border: 1px solid var(--line); border-left: 3px solid var(--flag); background: var(--surface); padding: 12px 16px; border-radius: 0 var(--radius) var(--radius) 0; margin: 14px 0; max-width: 82ch; }
+.callout p:last-child { margin-bottom: 0; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+.chip { font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.chip:focus-visible, .search:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.search { font: inherit; font-size: 13.5px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); min-width: 0; flex: 1 1 200px; max-width: 320px; }
+.count { font-size: 12.5px; color: var(--muted); margin-left: auto; font-variant-numeric: tabular-nums; }
+.detail { color: var(--muted); font-size: 12.5px; }
+tfoot td { font-weight: 700; background: var(--sunk); }
+</style>
+
+<div class="wrap">
+  <nav class="toc" aria-label="Contents">
+    <div class="brand">ABA_Dev Change Inventory</div>
+    <div class="sub">Everything implemented in the org</div>
+    <ol id="toc"></ol>
+  </nav>
+  <main>
+    <section id="summary">
+      <div class="eyebrow">Org ABA_Dev · 00DgK00000bWvvVUAS</div>
+      <h1>What was implemented in ABA_Dev</h1>
+      <p class="lede" style="margin-top:12px">A complete record of every component, setting, user and data record that was created, changed, deactivated or deleted for the ABA opportunity reporting build. IDs and record data were read live from the org when this page was generated.</p>
+      <div class="meta">
+        <span>Generated <b id="gen-date"></b></span>
+        <span>Changed by <b>Suraj OD</b> (suraj.od.885d11d47e1b@agentforce.com)</span>
+        <span>Tool <b>Salesforce CLI 2.131.7</b>, API v67.0</span>
+      </div>
+      <div class="figures" id="figures"></div>
+    </section>
+
+    <section id="metadata">
+      <div class="eyebrow">Configuration</div>
+      <h2>Metadata components</h2>
+      <p class="intro">Each component deployed to the org, what happened to it, and what it contains. Built-in Salesforce components that were edited are marked <span class="pill Changed">CHANGED</span>. Nothing was deleted from the metadata. Old picklist values were deactivated so existing history stays intact.</p>
+      <div class="toolbar" id="meta-filter" role="group" aria-label="Filter components">
+        <button class="chip" type="button" data-f="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-f="Created" aria-pressed="false">Created</button>
+        <button class="chip" type="button" data-f="Changed" aria-pressed="false">Changed</button>
+        <span class="count" id="meta-count"></span>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Action</th><th>Type</th><th>API name</th><th>Label</th><th>What it contains / what changed</th><th>Salesforce ID</th></tr></thead>
+          <tbody id="meta-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="picklists">
+      <div class="eyebrow">Picklist changes</div>
+      <h2>Standard picklist values</h2>
+      <p class="intro">Values added to and deactivated on the four standard value sets that were changed.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Value set</th><th>Value</th><th>Action</th><th>Details</th></tr></thead>
+          <tbody id="pick-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="users">
+      <div class="eyebrow">Access</div>
+      <h2>Users, permissions &amp; settings</h2>
+      <h3>Users created</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Action</th><th>Name</th><th>Username</th><th>Email</th><th>Profile</th><th>Represents</th><th>ID</th></tr></thead>
+          <tbody id="user-rows"></tbody>
+        </table>
+      </div>
+      <p class="detail" style="margin-top:8px">Created through the API with no welcome or password e-mail, so these users cannot log in until a password is reset. Each uses one of the org's 4 Salesforce licences.</p>
+      <h3>Permission set assignments</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Action</th><th>Permission set</th><th>Assigned to</th><th>Assigned at</th></tr></thead>
+          <tbody id="psa-rows"></tbody>
+        </table>
+      </div>
+      <h3>Org settings changed</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Action</th><th>Setting</th><th>Where in Setup</th><th>Before</th><th>After</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td><span class="pill Changed">CHANGED</span></td><td>Enable “Set Audit Fields upon Record Creation” and “Update Records with Inactive Owners”<br><code>Security.settings · enableAuditFieldsInactiveOwner</code></td><td>Setup → User Interface</td><td>Off</td><td>On</td><td>Lets the historical opportunities carry realistic Created Dates, so Age and sales-cycle figures (R18) are correct. Safe to switch off again.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="deleted">
+      <div class="eyebrow">Data removed</div>
+      <h2>Deleted opportunities <span id="del-n" class="mono" style="font-size:16px;color:var(--muted)"></span></h2>
+      <p class="intro">These are Salesforce's own default demo opportunities. They were deleted with your approval so they would not inflate ABA's revenue, pipeline and win-rate numbers. A full backup, with every field, is in the project at <code>data/backup/old_sample_opportunities_backup.csv</code>. They are also in the org's Recycle Bin for 15 days from 8 Oct 2026. Their 13 accounts were kept.</p>
+      <div class="table-scroll tall">
+        <table>
+          <thead><tr><th>Opportunity</th><th>Account</th><th>Stage</th><th class="num">Amount</th><th>Close date</th><th>Type</th><th>Lead source</th><th>Old ID</th></tr></thead>
+          <tbody id="del-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="accounts">
+      <div class="eyebrow">Data loaded</div>
+      <h2>Accounts <span id="acc-n" class="mono" style="font-size:16px;color:var(--muted)"></span></h2>
+      <p class="intro">Loaded from <code>ABA_sample_accounts.csv</code>. Type was set to Customer on all of them. Segment is the new <code>Segment__c</code> field.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Account</th><th>Industry</th><th>Segment</th><th>Billing country</th><th>Type</th><th class="num">Opps</th><th class="num">Won value</th><th>ID</th></tr></thead>
+          <tbody id="acc-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="opps">
+      <div class="eyebrow">Data loaded</div>
+      <h2>Opportunities <span id="opp-n" class="mono" style="font-size:16px;color:var(--muted)"></span></h2>
+      <p class="intro">Loaded from <code>ABA_sample_opportunities.csv</code> and linked to the accounts above. Owners were mapped as Venkatesh → Venkatesh Rethinasamy, Alburayh → Mohammed Alburayh, Fouad → <b>Suraj OD</b>. Deferred Date was stamped by the flow on load, and Created Date was back-dated to before the proposal date. Amounts are SAR.</p>
+      <div class="toolbar" id="opp-filter" role="group" aria-label="Filter opportunities">
+        <button class="chip" type="button" data-f="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-f="won" aria-pressed="false">Closed Won</button>
+        <button class="chip" type="button" data-f="lost" aria-pressed="false">Closed Lost</button>
+        <button class="chip" type="button" data-f="open" aria-pressed="false">Open</button>
+        <button class="chip" type="button" data-f="def" aria-pressed="false">Deferred</button>
+        <input class="search" id="opp-search" type="search" placeholder="Search account, owner, offering…" aria-label="Search opportunities">
+        <span class="count" id="opp-count"></span>
+      </div>
+      <div class="table-scroll tall">
+        <table>
+          <thead><tr><th>Opportunity</th><th>Account</th><th>Owner</th><th>Stage</th><th class="num">Prob.</th><th class="num">Amount</th><th>Close date</th><th>Qtr</th><th>Forecast</th><th>Type</th><th>Lead source</th><th>Offering</th><th>Proposal date</th><th>Win/Loss reason</th><th>Win/Loss details</th><th>Deferred date</th><th>Created</th><th>ID</th></tr></thead>
+          <tbody id="opp-rows"></tbody>
+          <tfoot><tr><td colspan="5">Total of shown rows</td><td class="num" id="opp-total"></td><td colspan="12"></td></tr></tfoot>
+        </table>
+      </div>
+      <div class="callout" id="other-opps-box" hidden><p><b>Also in the org, not created by this build:</b> <span id="other-opps"></span>. This record was created by Suraj OD on 8 Oct 2026. Its stage is <i>Prospecting</i>, which is now an inactive value, so it shows up in the open-pipeline reports (R05, R07). Delete it or move it to a current stage before the demo.</p></div>
+    </section>
+
+    <section id="files">
+      <div class="eyebrow">Project</div>
+      <h2>Files added to the project</h2>
+      <p class="intro">Files created in the local SFDX project (<code>ABA_Dev</code> folder) in addition to the metadata retrieved from the org.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Path</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td><code>scripts/aba/build_reports.py</code></td><td>Generates all reports, dashboards, folders, the Home page, the Sales app override and <code>manifest/aba-package.xml</code>.</td></tr>
+            <tr><td><code>scripts/aba/build_sample_data.py</code></td><td>Builds the account and opportunity import plan from the two CSVs.</td></tr>
+            <tr><td><code>scripts/aba/inventory_template.html</code></td><td>Template for this inventory page.</td></tr>
+            <tr><td><code>data/aba/aba-plan.json</code>, <code>Account.json</code>, <code>Opportunity.json</code></td><td>The exact records that were imported.</td></tr>
+            <tr><td><code>data/backup/old_sample_opportunities_backup.csv</code></td><td>Backup of the 31 deleted opportunities.</td></tr>
+            <tr><td><code>manifest/full-package.xml</code></td><td>Manifest of all org metadata (used for the initial retrieve).</td></tr>
+            <tr><td><code>manifest/aba-package.xml</code></td><td>The 44 ABA components, for deploy or retrieve.</td></tr>
+            <tr><td><code>artifact.html</code></td><td>The build and demo guide.</td></tr>
+            <tr><td><code>force-app/main/default/…</code></td><td>Source for every component in the metadata table above.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="undo">
+      <div class="eyebrow">Rollback</div>
+      <h2>How to undo</h2>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>To undo</th><th>How</th></tr></thead>
+          <tbody>
+            <tr><td>Reports, dashboards, folders</td><td>Delete them from the Reports and Dashboards tabs. Delete the dashboards first, then the reports, then the empty folders.</td></tr>
+            <tr><td>Home page</td><td>Setup → Lightning App Builder → ABA Sales Home Page → Activation → remove the Sales app assignment. Then the page can be deleted.</td></tr>
+            <tr><td>Fields, validation rule, flow</td><td>Deactivate the flow and the rule. Remove the fields from reports first, then delete the fields in Object Manager. Deleted fields stay restorable for 15 days.</td></tr>
+            <tr><td>Picklist values</td><td>Reactivate the old values in Object Manager. Deactivate the new ones only after records using them are updated.</td></tr>
+            <tr><td>Sample data</td><td>Delete the 52 ABA opportunities and 12 accounts listed above (IDs shown). Restore the 31 old opportunities from the backup CSV with Data Loader. Restored records get new IDs.</td></tr>
+            <tr><td>Users</td><td>Users can't be deleted in Salesforce. Deactivate Venkatesh Rethinasamy and Mohammed Alburayh to free the licences.</td></tr>
+            <tr><td>Audit-field setting</td><td>Setup → User Interface → untick “Enable ‘Set Audit Fields upon Record Creation’…”, and remove the ABA Historical Data Load permission set.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script id="org-data" type="application/json">/*__DATA__*/</script>
+<script>
+(function () {
+  var DATA = JSON.parse(document.getElementById("org-data").textContent);
+  var esc = function (s) { return s == null ? "" : String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); };
+  var fmt = function (n) { return n == null || n === "" ? "" : Number(n).toLocaleString("en-US", { maximumFractionDigits: 0 }); };
+  var day = function (s) { return s ? String(s).slice(0, 10) : ""; };
+  var pill = function (a) { return "<span class='pill " + a + "'>" + a.toUpperCase() + "</span>"; };
+  document.getElementById("gen-date").textContent = DATA.generated;
+
+  // ------------- index lookups
+  var byDev = function (rows, key) { var m = {}; (rows || []).forEach(function (r) { m[r[key]] = r; }); return m; };
+  var fieldIds = {}; DATA.fields.forEach(function (f) { fieldIds[f.DeveloperName] = f.Id; });
+  var reports = DATA.reports, dashboards = byDev(DATA.dashboards, "DeveloperName"), folders = byDev(DATA.folders, "DeveloperName"),
+      permsets = byDev(DATA.permsets, "Name");
+  var vr = DATA.validation_rules[0] || {}, flow = DATA.flows[0] || {}, fp = DATA.flexipages[0] || {};
+
+  // ------------- metadata rows: [action, type, api, label, detail, id]
+  var M = [
+    ["Created", "Custom Field", "Account.Segment__c", "Segment", "Picklist (restricted): SME, Corporate, Enterprise.", fieldIds.Segment],
+    ["Created", "Custom Field", "Opportunity.Win_Loss_Reason__c", "Win/Loss Reason", "Picklist dependent on Stage. Closed Won: 5 win reasons. Closed Lost: 6 loss reasons.", fieldIds.Win_Loss_Reason],
+    ["Created", "Custom Field", "Opportunity.Win_Loss_Details__c", "Win/Loss Details", "Long text area (32,768 characters, 5 lines).", fieldIds.Win_Loss_Details],
+    ["Created", "Custom Field", "Opportunity.Proposal_Submission_Date__c", "Proposal Submission Date", "Date.", fieldIds.Proposal_Submission_Date],
+    ["Created", "Custom Field", "Opportunity.Deferred_Date__c", "Deferred Date", "Date, filled in by flow.", fieldIds.Deferred_Date],
+    ["Created", "Custom Field", "Opportunity.Offering__c", "Offering", "Picklist: SAP S/4HANA, SAP SuccessFactors, SAP Support (AMS), Cloud Migration, Data & Analytics.", fieldIds.Offering],
+    ["Created", "Custom Field", "Opportunity.Close_Quarter__c", "Close Quarter", "Text formula: \"Q\" & TEXT(CEILING(MONTH(CloseDate) / 3)).", fieldIds.Close_Quarter],
+    ["Created", "Validation Rule", "Opportunity.Win_Loss_Reason_Required", "Win_Loss_Reason_Required", "Error when Stage is Closed Won or Closed Lost and Win/Loss Reason is blank.", vr.Id],
+    ["Created", "Flow", "ABA_Opportunity_Set_Deferred_Date", "ABA Opportunity - Set Deferred Date", "Record-triggered, before save, create and update. When Stage = Deferred and Deferred Date is blank, sets it to today. Active.", flow.Id],
+    ["Created", "Permission Set", "ABA_Opportunity_Reporting", "ABA Opportunity Reporting", "Read/edit on the 6 new fields; read-only on Close Quarter.", (permsets.ABA_Opportunity_Reporting || {}).Id],
+    ["Created", "Permission Set", "ABA_Historical_Data_Load", "ABA Historical Data Load", "System permission: Set Audit Fields upon Record Creation.", (permsets.ABA_Historical_Data_Load || {}).Id],
+    ["Changed", "Page Layout", "Opportunity-Opportunity Layout", "Opportunity Layout", "Empty “Other Information” section renamed “Bid & Win-Loss”. It holds Offering, Proposal Submission Date, Deferred Date (read-only), Win/Loss Reason and Win/Loss Details.", ""],
+    ["Changed", "Page Layout", "Account-Account Layout", "Account Layout", "Segment added below Industry.", ""],
+    ["Changed", "Standard Value Set", "OpportunityStage", "Stage", "11 ABA stages active, 7 old stages deactivated. See Picklist changes.", ""],
+    ["Changed", "Standard Value Set", "OpportunityType", "Opportunity Type", "5 ABA types active, 4 old types deactivated.", ""],
+    ["Changed", "Standard Value Set", "LeadSource", "Lead Source", "3 values added, 2 deactivated.", ""],
+    ["Changed", "Standard Value Set", "Industry", "Industry", "Added Oil & Gas.", ""],
+    ["Changed", "Settings", "Security", "Security Settings", "enableAuditFieldsInactiveOwner: false → true.", ""],
+    ["Changed", "Lightning App", "standard__LightningSales", "Sales", "Home tab override (desktop) set to ABA_Sales_Home_Page.", ""],
+    ["Created", "Lightning Page", "ABA_Sales_Home_Page", "ABA Sales Home Page", "Home page template. Top: D1 (900 px) and D2 (1050 px) embedded. Bottom: R05 and R10a charts. Sidebar: R08 and R01 charts.", fp.Id]
+  ];
+  [["ABA_Management_Reports", "Report Folder", "Shared View with role CEO and subordinates."],
+   ["ABA_Sales_Reports", "Report Folder", "Shared View with all internal users."],
+   ["ABA_Management_Dashboards", "Dashboard Folder", "Shared View with role CEO and subordinates."]].forEach(function (f) {
+    var row = folders[f[0]] || {};
+    M.push(["Created", f[1], f[0], row.Name || f[0], f[2], row.Id]);
+  });
+  reports.forEach(function (r) {
+    M.push(["Created", "Report", r.FolderName.replace(/ /g, "_") + "/" + r.DeveloperName, r.Name, r.Format + " report on Opportunities, in folder " + r.FolderName + ".", r.Id]);
+  });
+  DATA.dashboards.forEach(function (d) {
+    M.push(["Created", "Dashboard", "ABA_Management_Dashboards/" + d.DeveloperName, d.Title, "Lightning dashboard, 9 components, filters Opportunity Owner and Account Industry, runs as " + (d["RunningUser.Name"] || "Suraj OD") + ".", d.Id]);
+  });
+
+  var metaFilter = "all";
+  function renderMeta() {
+    var rows = M.filter(function (m) { return metaFilter === "all" || m[0] === metaFilter; });
+    document.getElementById("meta-rows").innerHTML = rows.map(function (m) {
+      return "<tr><td>" + pill(m[0]) + "</td><td class='nowrap'>" + esc(m[1]) + "</td><td><code>" + esc(m[2]) + "</code></td><td>" + esc(m[3]) +
+        "</td><td>" + esc(m[4]) + "</td><td class='id'>" + esc(m[5] || "–") + "</td></tr>";
+    }).join("");
+    document.getElementById("meta-count").textContent = rows.length + " of " + M.length + " components";
+  }
+  document.querySelectorAll("#meta-filter .chip").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll("#meta-filter .chip").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+      b.setAttribute("aria-pressed", "true"); metaFilter = b.getAttribute("data-f"); renderMeta();
+    });
+  });
+  renderMeta();
+
+  // ------------- picklists
+  var P = [];
+  var stg = [["Qualification", "10%, Pipeline (kept, now the default)"], ["Solutioning", "20%, Pipeline"], ["Proposal Preparation", "40%, Pipeline"],
+    ["Internal Review", "50%, Pipeline"], ["Proposal Submitted", "60%, Best Case"], ["Negotiation", "75%, Commit"], ["Verbal Award", "90%, Commit"],
+    ["Closed Won", "100%, Closed, Won (kept)"], ["Closed Lost", "0%, Omitted (kept, forecast changed from Closed)"],
+    ["Deferred", "0%, Omitted, open (excluded from pipeline)"], ["Old / Archived", "0%, Omitted, open (excluded from pipeline)"]];
+  stg.forEach(function (s) { P.push(["Opportunity Stage", s[0], /kept/.test(s[1]) ? "Changed" : "Created", s[1]]); });
+  ["Prospecting", "Needs Analysis", "Value Proposition", "Id. Decision Makers", "Perception Analysis", "Proposal/Price Quote", "Negotiation/Review"].forEach(function (s) {
+    P.push(["Opportunity Stage", s, "Deactivated", "Salesforce default"]); });
+  ["Net New Names", "Existing Customer – Upgrade/Upsell", "Existing Customer – Support", "Existing Customer – Change Request", "Existing Customer – New Opportunity"].forEach(function (s) {
+    P.push(["Opportunity Type", s, "Created", "ABA value (Day 2)"]); });
+  ["Existing Customer - Upgrade", "Existing Customer - Replacement", "Existing Customer - Downgrade", "New Customer"].forEach(function (s) {
+    P.push(["Opportunity Type", s, "Deactivated", "Salesforce default"]); });
+  ["SAP Leads", "Events & Campaigns", "Sales Outreach"].forEach(function (s) { P.push(["Lead Source", s, "Created", "ABA value (Day 2)"]); });
+  ["Web", "Phone Inquiry", "Partner Referral"].forEach(function (s) { P.push(["Lead Source", s, "Changed", "Kept as is"]); });
+  ["Purchased List", "Other"].forEach(function (s) { P.push(["Lead Source", s, "Deactivated", "Salesforce default"]); });
+  P.push(["Industry", "Oil & Gas", "Created", "Needed by Gulf Petrochem Services"]);
+  document.getElementById("pick-rows").innerHTML = P.map(function (p) {
+    var label = p[2] === "Changed" ? "<span class='pill Changed'>KEPT</span>" : pill(p[2]);
+    return "<tr><td class='nowrap'>" + esc(p[0]) + "</td><td>" + esc(p[1]) + "</td><td>" + label + "</td><td class='detail'>" + esc(p[3]) + "</td></tr>";
+  }).join("");
+
+  // ------------- users & permission sets
+  var rep = { "Venkatesh Rethinasamy": "Venkatesh Rethinasamy (sales)", "Mohammed Alburayh": "Mohammed Alburayh (sales / bids)" };
+  document.getElementById("user-rows").innerHTML = DATA.users.map(function (u) {
+    return "<tr><td>" + pill("Created") + "</td><td>" + esc(u.Name) + "</td><td><code>" + esc(u.Username) + "</code></td><td>" + esc(u.Email) +
+      "</td><td>" + esc(u["Profile.Name"]) + "</td><td>" + esc(rep[u.Name] || "") + "</td><td class='id'>" + esc(u.Id) + "</td></tr>";
+  }).join("") + "<tr><td><span class='pill Changed'>EXISTING</span></td><td>Suraj OD</td><td><code>suraj.od.885d11d47e1b@agentforce.com</code></td><td>suraj.od@motiveminds.com</td><td>System Administrator</td><td>Mohammed Fouad (no licence left) and dashboard running user</td><td class='id'>005gK00008Pc7v1QAB</td></tr>";
+  document.getElementById("psa-rows").innerHTML = DATA.permset_assignments.map(function (a) {
+    return "<tr><td>" + pill("Assigned") + "</td><td>" + esc(a["PermissionSet.Label"]) + " <code>" + esc(a["PermissionSet.Name"]) + "</code></td><td>" +
+      esc(a["Assignee.Name"]) + "</td><td class='nowrap'>" + esc(day(a.SystemModstamp)) + "</td></tr>";
+  }).join("");
+
+  // ------------- deleted
+  var del = DATA.deleted_opportunities;
+  document.getElementById("del-n").textContent = "(" + del.length + ")";
+  document.getElementById("del-rows").innerHTML = del.map(function (o) {
+    return "<tr><td>" + esc(o.Name) + "</td><td>" + esc(o["Account.Name"]) + "</td><td>" + esc(o.StageName) + "</td><td class='num'>" + fmt(o.Amount) +
+      "</td><td class='nowrap'>" + esc(o.CloseDate) + "</td><td>" + esc(o.Type) + "</td><td>" + esc(o.LeadSource) + "</td><td class='id'>" + esc(o.Id) + "</td></tr>";
+  }).join("");
+
+  // ------------- accounts
+  var accNames = {}; DATA.accounts.forEach(function (a) { accNames[a.Name] = true; });
+  var abaOpps = DATA.opportunities.filter(function (o) { return accNames[o["Account.Name"]]; });
+  var otherOpps = DATA.opportunities.filter(function (o) { return !accNames[o["Account.Name"]]; });
+  document.getElementById("acc-n").textContent = "(" + DATA.accounts.length + ")";
+  document.getElementById("acc-rows").innerHTML = DATA.accounts.map(function (a) {
+    var mine = abaOpps.filter(function (o) { return o["Account.Name"] === a.Name; });
+    var won = mine.filter(function (o) { return o.StageName === "Closed Won"; }).reduce(function (s, o) { return s + (o.Amount || 0); }, 0);
+    return "<tr><td>" + esc(a.Name) + "</td><td>" + esc(a.Industry) + "</td><td>" + esc(a.Segment__c) + "</td><td>" + esc(a.BillingCountry) +
+      "</td><td>" + esc(a.Type) + "</td><td class='num'>" + mine.length + "</td><td class='num'>" + fmt(won) + "</td><td class='id'>" + esc(a.Id) + "</td></tr>";
+  }).join("");
+
+  // ------------- opportunities
+  document.getElementById("opp-n").textContent = "(" + abaOpps.length + ")";
+  if (otherOpps.length) {
+    document.getElementById("other-opps-box").hidden = false;
+    document.getElementById("other-opps").innerHTML = otherOpps.map(function (o) {
+      return "“" + esc(o.Name) + "” (" + esc(o["Account.Name"]) + ", " + esc(o.StageName) + ", " + fmt(o.Amount) + ", <span class='mono'>" + esc(o.Id) + "</span>)";
+    }).join("; ");
+  }
+  var cls = function (o) { return o.StageName === "Closed Won" ? "won" : o.StageName === "Closed Lost" ? "lost" : o.StageName === "Deferred" ? "def" : "open"; };
+  var oppFilter = "all";
+  function renderOpps() {
+    var q = (document.getElementById("opp-search").value || "").trim().toLowerCase();
+    var rows = abaOpps.filter(function (o) {
+      if (oppFilter !== "all" && cls(o) !== oppFilter) return false;
+      if (!q) return true;
+      return [o.Name, o["Account.Name"], o["Owner.Name"], o.StageName, o.Offering__c, o.Type, o.LeadSource, o.Win_Loss_Reason__c].join(" ").toLowerCase().indexOf(q) !== -1;
+    });
+    document.getElementById("opp-rows").innerHTML = rows.map(function (o) {
+      var c = cls(o), stageCls = c === "open" ? "stage" : c;
+      return "<tr><td style='min-width:240px'>" + esc(o.Name) + "</td><td class='nowrap'>" + esc(o["Account.Name"]) + "</td><td class='nowrap'>" + esc(o["Owner.Name"]) +
+        "</td><td><span class='pill " + stageCls + "'>" + esc(o.StageName) + "</span></td><td class='num'>" + fmt(o.Probability) + "%</td><td class='num'>" + fmt(o.Amount) +
+        "</td><td class='nowrap'>" + esc(o.CloseDate) + "</td><td>" + esc(o.Close_Quarter__c) + "</td><td class='nowrap'>" + esc(o.ForecastCategoryName) +
+        "</td><td style='min-width:200px'>" + esc(o.Type) + "</td><td class='nowrap'>" + esc(o.LeadSource) + "</td><td class='nowrap'>" + esc(o.Offering__c) +
+        "</td><td class='nowrap'>" + esc(o.Proposal_Submission_Date__c) + "</td><td style='min-width:180px'>" + esc(o.Win_Loss_Reason__c) +
+        "</td><td style='min-width:200px' class='detail'>" + esc(o.Win_Loss_Details__c) + "</td><td class='nowrap'>" + esc(o.Deferred_Date__c) +
+        "</td><td class='nowrap'>" + esc(day(o.CreatedDate)) + "</td><td class='id'>" + esc(o.Id) + "</td></tr>";
+    }).join("");
+    var total = rows.reduce(function (s, o) { return s + (o.Amount || 0); }, 0);
+    document.getElementById("opp-total").textContent = fmt(total);
+    document.getElementById("opp-count").textContent = rows.length + " of " + abaOpps.length + " opportunities";
+  }
+  document.querySelectorAll("#opp-filter .chip").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll("#opp-filter .chip").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+      b.setAttribute("aria-pressed", "true"); oppFilter = b.getAttribute("data-f"); renderOpps();
+    });
+  });
+  document.getElementById("opp-search").addEventListener("input", renderOpps);
+  renderOpps();
+
+  // ------------- summary figures + toc
+  var created = M.filter(function (m) { return m[0] === "Created"; }).length, changed = M.length - created;
+  var F = [[created, "Components created"], [changed, "Built-in components changed"], [DATA.reports.length, "Reports"], [DATA.dashboards.length, "Dashboards"],
+    [DATA.users.length, "Users created"], [DATA.accounts.length, "Accounts loaded"], [abaOpps.length, "Opportunities loaded"], [del.length, "Opportunities deleted"]];
+  document.getElementById("figures").innerHTML = F.map(function (f) {
+    return "<div class='figure'><div class='v'>" + f[0] + "</div><div class='l'>" + f[1] + "</div></div>";
+  }).join("");
+  var T = [["summary", "Summary", ""], ["metadata", "Metadata", M.length], ["picklists", "Picklist values", P.length], ["users", "Users & access", DATA.users.length + DATA.permset_assignments.length + 1],
+    ["deleted", "Deleted data", del.length], ["accounts", "Accounts", DATA.accounts.length], ["opps", "Opportunities", abaOpps.length], ["files", "Project files", ""], ["undo", "How to undo", ""]];
+  document.getElementById("toc").innerHTML = T.map(function (t) {
+    return "<li><a href='#" + t[0] + "'>" + t[1] + "<span>" + t[2] + "</span></a></li>";
+  }).join("");
+})();
+</script>
