@@ -1,0 +1,25 @@
+name: Deploy to  Salesforce
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Salesforce CLI
+        run: |
+          npm install sfdx-cli --global
+
+      - name: Authenticate with Salesforce
+      run: |
+          echo "${{ secrets.SFDX_AUTH_URL }}" > sfdx_auth_url.txt
+          sfdx auth:sfdxurl:store -f sfdx_auth_url.txt. -a DevHub
+
+      - name: Deploy to Salesforce
+        run: |
+          sfdx force:source:deploy -p force-app -u DevHub 
