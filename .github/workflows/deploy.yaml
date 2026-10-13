@@ -1,4 +1,5 @@
-name: Deploy to  Salesforce
+name: Deploy to Salesforce
+
 on:
   push:
     branches:
@@ -9,16 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
 
       - name: Install Salesforce CLI
-        run: |
-          npm install sfdx-cli --global
+        run: npm install --global @salesforce/cli
 
       - name: Authenticate with Salesforce
-      run: |
-          echo "${{ secrets.SFDX_AUTH_URL }}" > sf org login sfdx-url.txt --alias ABA_Dev --set-default --sfdx-url-stdin
+        env:
+          SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
+        run: |
+          echo "$SFDX_AUTH_URL" | sf org login sfdx-url --alias ABA_Dev --set-default --sfdx-url-stdin
 
       - name: Deploy to Salesforce
         run: |
-          sf prject deploy start --target-org ABA_Dev --wait 10
+          sf project deploy start --source-dir force-app --target-org ABA_Dev --wait 10
