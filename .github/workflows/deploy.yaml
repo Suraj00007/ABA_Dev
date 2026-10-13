@@ -17,9 +17,8 @@ jobs:
 
       - name: Authenticate with Salesforce
       run: |
-          echo "${{ secrets.SFDX_AUTH_URL }}" > sfdx_auth_url.txt
-          sfdx auth:sfdxurl:store -f sfdx_auth_url.txt. -a DevHub
+          echo "${{ secrets.SFDX_AUTH_URL }}" > sf org login sfdx-url.txt --alias ABA_Dev --set-default --sfdx-url-stdin
 
       - name: Deploy to Salesforce
         run: |
-          sfdx force:source:deploy -p force-app -u DevHub 
+          sf prject deploy start --target-org ABA_Dev --wait 10
