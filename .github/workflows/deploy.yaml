@@ -24,6 +24,10 @@ jobs:
         env:
           SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
         run: |
+          if [ -z "$SFDX_AUTH_URL" ]; then
+            echo "::error::SFDX_AUTH_URL secret is empty or not available to this workflow"
+            exit 1
+          fi
           echo "$SFDX_AUTH_URL" | sf org login sfdx-url --alias ABA_Dev --set-default --sfdx-url-stdin
 
       - name: Deploy to Salesforce
